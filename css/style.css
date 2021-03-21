@@ -425,6 +425,14 @@ hr.flaired-edges:before {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    z-index: 999;
+}
+
+@media (max-width: 420px) {
+    .scroll-top-btn {
+        bottom: 50px;
+        right: 10px;
+    }
 }
 
 .minimize-scrollbar {

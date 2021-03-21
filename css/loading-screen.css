@@ -6,7 +6,12 @@
     https://www.w3schools.com/howto/howto_css_loader.asp
 */
 
-/* Center the loader */
+.loader-wrapper {
+    display: block;
+    width: 100%;
+    height: 100vh;
+}
+
 .loader {
     position: absolute;
     left: 50%;
