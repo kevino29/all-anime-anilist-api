@@ -3,11 +3,15 @@ window.addEventListener('load', function() {
     // Get the results div
     let results = document.querySelector('#results');
 
+    // Get the search box
+    let searchBox = document.querySelector('#searchBox');
+
     // Get the pagination ul
     let pagination = document.querySelector('#pageList');
 
     let currentPage = 1;
     let lastPage;
+    let search;
 
     // Set the url endpoint for the API
     const url = 'https://graphql.anilist.co';
@@ -15,7 +19,7 @@ window.addEventListener('load', function() {
     // Set the query for the request
     const query =
     `
-        query ($page: Int) {
+        query ($page: Int, $search: String) {
             Page (page: $page) {
                 pageInfo {
                     total
@@ -24,7 +28,7 @@ window.addEventListener('load', function() {
                     lastPage
                     hasNextPage
                 }
-                media {
+                media (search: $search) {
                     id
                     type
                     siteUrl
@@ -43,16 +47,35 @@ window.addEventListener('load', function() {
         }
     `;
 
+    // Add an event listener for searching media
+    document.querySelector('#searchButton').addEventListener('click', function () {
+        if (searchBox.value !== null && searchBox.value !== undefined && searchBox.value.length !== 0) {   
+            search = searchBox.value;
+        }
+        else {
+            search = null;
+        }
+        
+        // Always set current page to ONE each search request
+        currentPage = 1;
+
+        requestAPI();
+    });
+
+    // Initial call to load the first medias
     requestAPI();
 
+    // Add a click event listener on each link in the pagination
     for (let i = 0; i < document.querySelector('#pageList').childElementCount; i++) {
         document.querySelector('#page-link-' + i).addEventListener('click', pageLinkClicked);
 
+        // Handles the click event
         function pageLinkClicked(e) {
             // Remove active status on each page list
             document.querySelector('#pageList').children
                 .forEach(e => e.classList.remove('active'));
 
+            // Figure out which button was clicked
             switch (e.target.innerText) {
                 case 'Previous':
                     console.log('Previous pressed!');
@@ -64,13 +87,10 @@ window.addEventListener('load', function() {
                     if (currentPage !== 1576)
                         currentPage += 1;
                     break;
-                default:                    
-                    try {
-                        currentPage = parseInt(e.target.innerText); 
-                    }
-                    catch(error) {
-                        console.log(error);
-                    }
+                default:
+                    // 'Numbered' button was clicked
+                    try { currentPage = parseInt(e.target.innerText) }
+                    catch(error) { console.log(error) }
                     break;
             }
             requestAPI();
@@ -79,60 +99,102 @@ window.addEventListener('load', function() {
 
     function loadContent() {
         // Load the pagination dynamically, also add the functionality
-        if (currentPage === 1 || currentPage === 2) {
+        let pageList = document.querySelector('#pageList')
+        let pageListLength = pageList.children.length - 2;
+
+        // Remove all display none styles to each list item
+        pageList.children.forEach(e => e.classList.remove('d-none'));
+
+        // Add display none style to each list item that is not used
+        if (lastPage < pageListLength) {
+            let iters = 0;
+            for (let i = pageListLength - lastPage; i > 0; i--, iters++) {
+                pageList.children[pageListLength - iters].classList.add('d-none')
+            }
+        }
+
+        let prevButton = document.querySelector('#page-item-prev');
+        let nextButton = document.querySelector('#page-item-next');
+        if (lastPage === 1) {
+            // Disable both the next and prev buttons
+            nextButton.classList.add('disabled');
+            prevButton.classList.add('disabled');
+
+            // Set the inner text of each page links
+            for (let i = 1; i < pageList.children.length - 1; i++) {
+                document.querySelector('#page-link-' + i).innerText = i;
+            }
+        }
+        else if (lastPage === 2) {
             if (currentPage === 1) {
-                // Disable the prev button, enable the next button (if disabled)
-                document.querySelector('#page-item-prev').classList.add('disabled');
-                document.querySelector('#page-item-next').classList.remove('disabled');
+                // Disable both the next and prev buttons
+                nextButton.classList.remove('disabled');
+                prevButton.classList.add('disabled');
             }
             else {
-                // Enable both next and prev buttons, if the current page is 2
-                document.querySelector('#page-item-prev').classList.remove('disabled');
-                document.querySelector('#page-item-next').classList.remove('disabled');
+                // Disable next button, enable the prev button (if disabled)
+                nextButton.classList.add('disabled');
+                prevButton.classList.remove('disabled');
             }
 
             // Set the inner text of each page links
-            for (let i = 1; i < document.querySelector('#pageList').childElementCount - 1; i++) {
+            for (let i = 1; i < pageList.children.length - 1; i++) {
+                document.querySelector('#page-link-' + i).innerText = i;
+            }
+        }
+        else if (currentPage === 1 || currentPage === 2) {
+            if (currentPage === 1) {
+                // Disable the prev button, enable the next button (if disabled)
+                prevButton.classList.add('disabled');
+                nextButton.classList.remove('disabled');
+            }
+            else {
+                // Enable both next and prev buttons, if the current page is 2
+                prevButton.classList.remove('disabled');
+                nextButton.classList.remove('disabled');
+            }
+
+            // Set the inner text of each page links
+            for (let i = 1; i < pageList.children.length - 1; i++) {
                 document.querySelector('#page-link-' + i).innerText = i;
             }
         }
         else if (currentPage === lastPage || currentPage === lastPage - 1) {
             if (currentPage === lastPage) {
                 // Disable the next button, enable the prev button (if disabled)
-                document.querySelector('#page-item-prev').classList.remove('disabled');
-                document.querySelector('#page-item-next').classList.add('disabled');
+                prevButton.classList.remove('disabled');
+                nextButton.classList.add('disabled');
             } 
             else {
                 // Enable both next and prev buttons, if the current page is the second last page
-                document.querySelector('#page-item-prev').classList.remove('disabled');
-                document.querySelector('#page-item-next').classList.remove('disabled');
+                prevButton.classList.remove('disabled');
+                nextButton.classList.remove('disabled');
             }
 
             // Set the inner text of each page links
             let iters = 0;
-            for (let i = document.querySelector('#pageList').childElementCount - 2; i > 0; i--, iters++) {
+            for (let i = pageList.childElementCount - 2; i > 0; i--, iters++) {
                 document.querySelector('#page-link-' + i).innerText = lastPage - iters;
             }
         }
         else {
             // Enable both next and prev buttons
-            document.querySelector('#page-item-prev').classList.remove('disabled');
-            document.querySelector('#page-item-next').classList.remove('disabled');
+            prevButton.classList.remove('disabled');
+            nextButton.classList.remove('disabled');
 
             // Set the inner text of each page links
             let iters = -2;
-            for (let i = 1; i < document.querySelector('#pageList').childElementCount - 1; i++, iters++) {
+            for (let i = 1; i < pageList.childElementCount - 1; i++, iters++) {
                 document.querySelector('#page-link-' + i).innerText = currentPage + iters;
             }
         }
 
         // Look for the button with the same label as the currentPage var
         // Then set it to active
-        document.querySelector('#pageList').children
+        pageList.children
             .forEach(e => {
                 if (e.children[0].innerText == currentPage)
                     e.classList.add('active');
-                console.dir(e.children)
             });
 
         // Show the pagination
@@ -168,6 +230,7 @@ window.addEventListener('load', function() {
         // Define the variables
         let variables = {
             page: currentPage,
+            search: search,
         };
 
         // Define the config for the API request
@@ -204,9 +267,14 @@ window.addEventListener('load', function() {
         
         clearContent();
 
+        // Set the last page
+        lastPage = json.data.Page.pageInfo.lastPage;
+
+        // Create a new row for the results
         let newRow = document.createElement('div');
         newRow.classList.add('row', 'justify-content-center', 'pb-5', 'mx-auto');
 
+        // Add each queried media as a card
         json.data.Page.media
             .map(addNewMedia);
 
