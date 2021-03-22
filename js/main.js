@@ -1,4 +1,5 @@
 // Global vars
+let content;
 let results;
 let searchBox;
 let pagination;
@@ -45,13 +46,17 @@ const query =
     }
 `;
 
-window.addEventListener('load', function() {
-    // Get the results div
-    results = document.querySelector('#results');
+window.addEventListener('load', async function() {
     // Get the search box
     searchBox = document.querySelector('#searchBox');
     // Get the pagination ul
     pagination = document.querySelector('#pageList');
+
+    // Load all the filters
+    await loadFilters();
+
+    // Load the results container
+    results = loadResultsContainer();
 
     // Initial call to load the first medias
     requestAPI(true);

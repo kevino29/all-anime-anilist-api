@@ -1,3 +1,11 @@
+function loadResultsContainer() {
+    let resultContainer = document.createElement('div');
+    resultContainer.classList.add('row', 'justify-content-center', 'py-5', 'mx-auto');
+    
+    content.appendChild(resultContainer);
+    return resultContainer;
+}
+
 function loadContent() {
     // Load the pagination dynamically, also add the functionality
     let pageList = document.querySelector('#pageList');
@@ -119,7 +127,7 @@ function showLoader() {
 
     let loader = document.createElement('div');
     loader.classList.add('loader');
-    
+
     loaderWrapper.appendChild(loader);
     results.appendChild(loaderWrapper);
 }
