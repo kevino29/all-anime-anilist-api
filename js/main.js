@@ -1,5 +1,4 @@
 // Global vars
-
 let results;
 let searchBox;
 let pagination;
@@ -8,6 +7,7 @@ let lastPage;
 let search;
 let format;
 let sort;
+let reverseSort = false;
 let isAdult = false;
 
 // Set the url endpoint for the API
@@ -82,28 +82,28 @@ window.addEventListener('load', function() {
                     format = 'TV_SHORT';
                     break;
                 case "MOVIE":
-                    format = 'MOVIE'
+                    format = 'MOVIE';
                     break;
                 case "SPECIAL":
-                    format = 'SPECIAL'
+                    format = 'SPECIAL';
                     break;
                 case "OVA":
-                    format = 'OVA'
+                    format = 'OVA';
                     break;
                 case "ONA":
-                    format = 'ONA'
+                    format = 'ONA';
                     break;
                 case "MUSIC":
-                    format = 'MUSIC'
+                    format = 'MUSIC';
                     break;
                 case "MANGA":
-                    format = 'MANGA'
+                    format = 'MANGA';
                     break;
                 case "NOVEL":
-                    format = 'NOVEL'
+                    format = 'NOVEL';
                     break;
                 case "ONE SHOT":
-                    format = 'ONE_SHOT'
+                    format = 'ONE_SHOT';
                     break;
                 default:
                     format = undefined;
@@ -128,16 +128,29 @@ window.addEventListener('load', function() {
                     sort = 'POPULARITY_DESC';
                     break;
                 case "TRENDING":
-                    sort = 'TRENDING_DESC'
+                    sort = 'TRENDING_DESC';
                     break;
                 default:
                     sort = undefined;
                     break;
             }
-            document.querySelector('#selectedSort').innerText = e.target.innerText;
+            document.querySelector('#selectedSortText').innerText = e.target.innerText;
+            reverseSort = false;
             requestAPI();
         }
     }
+
+    // Add a click event listener on the reverse sort toggle
+    document.querySelector('#reverseSortToggle').addEventListener('click', function() {
+        if (document.querySelector('#selectedSortText').innerText === 'None') return;
+        reverseSort = !reverseSort;
+        if (sort !== undefined) {
+            if (reverseSort) sort = sort.replace('_DESC', '');
+            else sort += '_DESC';
+        }
+
+        requestAPI();
+    })
 
     // Add a click event listener on the adult toggle
     document.querySelector('#adultToggle').addEventListener('change', function() {
