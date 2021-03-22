@@ -40,7 +40,7 @@
                             <div class="input-group justify-content-end">
                                 <div class="form-outline">
                                     <input type="search" id="searchBox" class="form-control" />
-                                    <label id="searchLabel" class="form-label" for="searchBox">Search Anime</label>
+                                    <label id="searchLabel" class="form-label" for="searchBox">Search</label>
                                 </div>
                                 <button id="searchButton" type="button" class="btn btn-light">
                                     <i class="fas fa-search"></i>
@@ -53,7 +53,7 @@
         </nav>
 
         <div class="container">
-            <div id="title" class="h1 d-block text-center py-4">Browse Anime</div>
+            <div id="title" class="h1 d-block text-center py-4">Browse</div>
             <!-- <div class="sticky-top">
                 <ul id="list" class="list-group list-group-horizontal justify-content-center flex-wrap"></ul>
             </div> -->
@@ -82,7 +82,7 @@
                     <li><button class="dropdown-item">Novel</button></li>
                     <li><button class="dropdown-item">One Shot</button></li>
                 </ul>
-                <div id="selectedFormat" class="h5 text-center mt-2">&nbsp;</div>
+                <div id="selectedFormat" class="h5 text-center mt-2">All</div>
             </div>
 
             <!-- SORTING DROPDOWN -->
@@ -102,13 +102,14 @@
                     <li><button id="sortByPop" class="dropdown-item">Popularity</button></li>
                     <li><button id="sortByTrend" class="dropdown-item">Trending</button></li>
                 </ul>
-                <div id="selectedSort" class="h5 text-center mt-2">&nbsp;</div>
+                <div id="selectedSort" class="h5 text-center mt-2">None</div>
             </div>
 
             <!-- 18+ TOGGLE -->
             <div class="form-check form-switch d-inline-block">
                 <input id="adultToggle" class="form-check-input" type="checkbox"/>
-                <label class="form-check-label ml-3 h5" for="adultToggle">
+                <label class="form-check-label ml-3 h5" for="adultToggle"
+                    data-mdb-toggle="tooltip" data-mdb-placement="bottom" title="Includes adult media">
                     18+
                 </label>
                 <div class="h5 text-center mt-3">&nbsp;</div>
