@@ -452,3 +452,17 @@ hr.flaired-edges:before {
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
+.pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+    border-top-left-radius: .2rem;
+    border-bottom-left-radius: .2rem;
+}
+
+.pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+    border-top-right-radius: .2rem;
+    border-bottom-right-radius: .2rem;
+}

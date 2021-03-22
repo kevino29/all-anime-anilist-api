@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand theme-fg" href="">
-                    All Anime
+                    AniBrowser
                 </a>
                 <button class="navbar-toggler" type="button"
                         data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
@@ -58,6 +58,53 @@
                 <ul id="list" class="list-group list-group-horizontal justify-content-center flex-wrap"></ul>
             </div> -->
 
+            <!-- FORMAT DROPDOWN -->
+            <div class="dropdown d-inline-block mr-2">
+                <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="formatDropdown"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false">
+                    Format
+                </button>
+                <ul id="formatList" class="dropdown-menu" aria-labelledby="formatDropdown">
+                    <li><button class="dropdown-item">All</button></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item">TV</button></li>
+                    <li><button class="dropdown-item">TV Short</button></li>
+                    <li><button class="dropdown-item">Movie</button></li>
+                    <li><button class="dropdown-item">Special</button></li>
+                    <li><button class="dropdown-item">OVA</button></li>
+                    <li><button class="dropdown-item">ONA</button></li>
+                    <li><button class="dropdown-item">Music</button></li>
+                    <li><button class="dropdown-item">Manga</button></li>
+                    <li><button class="dropdown-item">Novel</button></li>
+                    <li><button class="dropdown-item">One Shot</button></li>
+                </ul>
+                <div id="selectedFormat" class="h5 text-center mt-2">&nbsp;</div>
+            </div>
+
+            <!-- SORTING DROPDOWN -->
+            <div class="dropdown d-inline-block">
+                <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="sortByDropdown"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false">
+                    Sort by
+                </button>
+                <ul id="sortByList" class="dropdown-menu" aria-labelledby="sortByDropdown">
+                    <li><button class="dropdown-item">None</button></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button id="sortByTitle" class="dropdown-item">Title</button></li>
+                    <li><button id="sortByPop" class="dropdown-item">Popularity</button></li>
+                    <li><button id="sortByTrend" class="dropdown-item">Trending</button></li>
+                </ul>
+                <div id="selectedSort" class="h5 text-center mt-2">&nbsp;</div>
+            </div>
+
             <!-- RESULTS HERE -->
             <div id="results" class="row justify-content-center py-5 mx-auto">
                 <!-- <div class="h1 text-center mb-5">
@@ -74,7 +121,7 @@
 
             <!-- PAGINATION HERE! -->
             <nav aria-label="Page Navigation" class="fixed-bottom" style="z-index:0">
-                <ul id="pageList" class="pagination pagination-sm justify-content-center mb-2">
+                <ul id="pageList" class="pagination pagination-sm pagination-circle justify-content-center mb-2">
                     <li id="page-item-prev" class="page-item mx-1">
                         <button id="page-link-0" class="page-link">Previous</button>
                     </li>
