@@ -138,7 +138,7 @@ window.addEventListener('load', function() {
     }
 
     // Add a click event listener on the adult toggle
-    document.querySelector('#adultToggle').addEventListener('change', function(e) {
+    document.querySelector('#adultToggle').addEventListener('change', function() {
         isAdult = this.checked;
         requestAPI();
     });
@@ -177,7 +177,7 @@ window.addEventListener('load', function() {
 
     function loadContent() {
         // Load the pagination dynamically, also add the functionality
-        let pageList = document.querySelector('#pageList')
+        let pageList = document.querySelector('#pageList');
         let pageListLength = pageList.children.length - 2;
 
         // Remove all display none styles to each list item
@@ -187,7 +187,7 @@ window.addEventListener('load', function() {
         if (lastPage < pageListLength) {
             let iters = 0;
             for (let i = pageListLength - lastPage; i > 0; i--, iters++) {
-                pageList.children[pageListLength - iters].classList.add('d-none')
+                pageList.children[pageListLength - iters].classList.add('d-none');
             }
         }
 
