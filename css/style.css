@@ -466,3 +466,8 @@ hr.flaired-edges:before {
     border-top-right-radius: .2rem;
     border-bottom-right-radius: .2rem;
 }
+
+.dropdown-menu {
+    max-height: 380px;
+    overflow-y: auto;
+}

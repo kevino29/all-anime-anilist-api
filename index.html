@@ -10,6 +10,8 @@
     <script src="https://kit.fontawesome.com/212d82f631.js" crossorigin="anonymous"></script>
     <!-- SCROLL TO TOP SCRIPT -->
     <script src="js/scroll-top.js"></script>
+    <!-- EVENT LISTENERS SCRIPT -->
+    <script src="js/event-listeners.js"></script>
     <!-- LIBRARY SCRIPT -->
     <script src="js/lib.js"></script>
     <!-- MAIN SCRIPT --> 
@@ -68,7 +70,7 @@
             <div id="title" class="h1 d-block text-center py-4">Browse</div>
 
             <!-- FORMAT DROPDOWN -->
-            <div class="dropdown d-inline-block mr-2">
+            <div class="dropdown d-inline-block d-inline mr-2">
                 <button
                     class="btn btn-primary dropdown-toggle"
                     type="button"
@@ -99,8 +101,47 @@
                 <div id="selectedFormat" class="h5 text-center mt-2">All</div>
             </div>
 
+            <!-- GENRE DROPDOWN -->
+            <div class="dropdown d-inline-block d-inline mr-2">
+                <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="genreDropdown"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false">
+                    Genre
+                </button>
+                <ul id="genreList" class="dropdown-menu" aria-labelledby="genreDropdown">
+                    <li><button class="dropdown-item">All</button></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item">Action</button></li>
+                    <li><button class="dropdown-item">Adventure</button></li>
+                    <li><button class="dropdown-item">Comedy</button></li>
+                    <li><button class="dropdown-item">Drama</button></li>
+                    <li><button class="dropdown-item">Ecchi</button></li>
+                    <li><button class="dropdown-item">Fantasy</button></li>
+                    <li><button class="dropdown-item">Horror</button></li>
+                    <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
+                        data-mdb-placement="right" title="English: Magical Girl">
+                            Mahou Shoujo
+                        </button>
+                    </li>
+                    <li><button class="dropdown-item">Mecha</button></li>
+                    <li><button class="dropdown-item">Music</button></li>
+                    <li><button class="dropdown-item">Mystery</button></li>
+                    <li><button class="dropdown-item">Psychological</button></li>
+                    <li><button class="dropdown-item">Romance</button></li>
+                    <li><button class="dropdown-item">Sci-Fi</button></li>
+                    <li><button class="dropdown-item">Slice of Life</button></li>
+                    <li><button class="dropdown-item">Sports</button></li>
+                    <li><button class="dropdown-item">Supernatural</button></li>
+                    <li><button class="dropdown-item">Thriller</button></li>
+                </ul>
+                <div id="selectedGenre" class="h5 text-center mt-2">All</div>
+            </div>
+
             <!-- SORTING DROPDOWN -->
-            <div class="dropdown d-inline-block mr-3">
+            <div class="dropdown d-inline-block mr-2">
                 <button
                     class="btn btn-primary dropdown-toggle"
                     type="button"
@@ -125,19 +166,24 @@
             </div>
 
             <!-- 18+ TOGGLE -->
-            <div class="form-check form-switch d-inline-block">
+            <div class="form-check form-switch d-inline-block float-right mt-1">
                 <input id="adultToggle" class="form-check-input" type="checkbox"/>
                 <label class="form-check-label ml-3 h5" for="adultToggle"
                     data-mdb-toggle="tooltip" data-mdb-placement="bottom" data-mdb-animation="true"
                     title="Only show adult media. Note: You need to be authorized in AniList to view adult medias.">
                     18+
                 </label>
-                <div class="h5 text-center mt-3">&nbsp;</div>
+                <div class="h5 text-center mt-2">&nbsp;</div>
             </div>
+
+            <!-- <div class="d-inline-block float-right">
+                <div class="btn btn-primary">BUTTON HERE</div>
+                <div class="h5 text-center mt-2">&nbsp;</div>
+            </div> -->
 
             <!-- PAGINATION HERE! -->
             <nav aria-label="Page Navigation" class="sticky-top pt-2" style="z-index:1">
-                <ul id="pageList" class="pagination pagination-sm pagination-circle justify-content-center">
+                <ul id="pageList" class="pagination pagination-sm pagination-circle justify-content-center w-100">
                     <li id="page-item-prev" class="page-item mx-1">
                         <button id="page-link-0" class="page-link">Previous</button>
                     </li>

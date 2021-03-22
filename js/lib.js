@@ -96,6 +96,8 @@ function loadContent() {
         .forEach(e => {
             if (e.children[0].innerText == currentPage)
                 e.classList.add('active');
+            else
+                e.classList.remove('active');
         });
 
     // Show the pagination
@@ -114,8 +116,10 @@ function clearContent() {
 function showLoader() {
     let loaderWrapper = document.createElement('div');
     loaderWrapper.classList.add('loader-wrapper');
+
     let loader = document.createElement('div');
     loader.classList.add('loader');
+    
     loaderWrapper.appendChild(loader);
     results.appendChild(loaderWrapper);
 }
@@ -124,7 +128,9 @@ function showPagination() {
     pagination.classList.remove('d-none');
 }
 
-async function requestAPI() {
+async function requestAPI(reset) {
+    if (reset) currentPage = 1;
+
     clearContent();
     showLoader();
 
@@ -132,8 +138,9 @@ async function requestAPI() {
     let variables = {
         page: currentPage,
         search: search,
-        sort: sort,
         format: format,
+        genre: genre,
+        sort: sort,
         isAdult: isAdult,
     };
 

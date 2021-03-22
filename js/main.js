@@ -6,6 +6,7 @@ let currentPage = 1;
 let lastPage;
 let search;
 let format;
+let genre;
 let sort;
 let reverseSort = false;
 let isAdult = false;
@@ -16,7 +17,7 @@ const url = 'https://graphql.anilist.co';
 // Set the query for the request
 const query =
 `
-    query ($page: Int, $format: MediaFormat, $search: String, $sort: [MediaSort], $isAdult: Boolean) {
+    query ($page: Int, $format: MediaFormat, $genre: String, $search: String, $sort: [MediaSort], $isAdult: Boolean) {
         Page (page: $page) {
             pageInfo {
                 total
@@ -25,7 +26,7 @@ const query =
                 lastPage
                 hasNextPage
             }
-            media (format: $format, search: $search, sort: $sort, isAdult: $isAdult) {
+            media (format: $format, genre: $genre, search: $search, sort: $sort, isAdult: $isAdult) {
                 id
                 type
                 siteUrl
@@ -53,140 +54,8 @@ window.addEventListener('load', function() {
     pagination = document.querySelector('#pageList');
 
     // Initial call to load the first medias
-    requestAPI();
+    requestAPI(true);
 
-    // Add an event listener for searching media
-    document.querySelector('#searchButton').addEventListener('click', function () {
-        if (searchBox.value !== null && searchBox.value !== undefined && searchBox.value.length !== 0)
-            search = searchBox.value;
-        else
-            search = undefined;
-        
-        // Always set current page to ONE each search request
-        currentPage = 1;
-
-        requestAPI();
-    });
-
-    // Add a click event listener to each format buttons
-    for (let i = 0; i < document.querySelector('#formatList').children.length; i++) {
-        document.querySelector('#formatList').children[i]
-            .addEventListener('click', formatEventHandler);
-
-        function formatEventHandler(e) {
-            switch(e.target.innerText.toUpperCase()) {
-                case "TV":
-                    format = 'TV';
-                    break;
-                case "TV SHORT":
-                    format = 'TV_SHORT';
-                    break;
-                case "MOVIE":
-                    format = 'MOVIE';
-                    break;
-                case "SPECIAL":
-                    format = 'SPECIAL';
-                    break;
-                case "OVA":
-                    format = 'OVA';
-                    break;
-                case "ONA":
-                    format = 'ONA';
-                    break;
-                case "MUSIC":
-                    format = 'MUSIC';
-                    break;
-                case "MANGA":
-                    format = 'MANGA';
-                    break;
-                case "NOVEL":
-                    format = 'NOVEL';
-                    break;
-                case "ONE SHOT":
-                    format = 'ONE_SHOT';
-                    break;
-                default:
-                    format = undefined;
-                    break;
-            }
-            document.querySelector('#selectedFormat').innerText = e.target.innerText;
-            requestAPI();
-        }
-    }
-
-    // Add a click event listener to each sort by buttons
-    for (let i = 0; i < document.querySelector('#sortByList').children.length; i++) {
-        document.querySelector('#sortByList').children[i]
-            .addEventListener('click', sortEventHandler);
-
-        function sortEventHandler(e) {
-            switch(e.target.innerText.toUpperCase()) {
-                case "TITLE":
-                    sort = 'TITLE_ENGLISH_DESC';
-                    break;
-                case "POPULARITY":
-                    sort = 'POPULARITY_DESC';
-                    break;
-                case "TRENDING":
-                    sort = 'TRENDING_DESC';
-                    break;
-                default:
-                    sort = undefined;
-                    break;
-            }
-            document.querySelector('#selectedSortText').innerText = e.target.innerText;
-            reverseSort = false;
-            requestAPI();
-        }
-    }
-
-    // Add a click event listener on the reverse sort toggle
-    document.querySelector('#reverseSortToggle').addEventListener('click', function() {
-        if (document.querySelector('#selectedSortText').innerText === 'None') return;
-        reverseSort = !reverseSort;
-        if (sort !== undefined) {
-            if (reverseSort) sort = sort.replace('_DESC', '');
-            else sort += '_DESC';
-        }
-
-        requestAPI();
-    })
-
-    // Add a click event listener on the adult toggle
-    document.querySelector('#adultToggle').addEventListener('change', function() {
-        isAdult = this.checked;
-        requestAPI();
-    });
-
-    // Add a click event listener on each link in the pagination
-    for (let i = 0; i < document.querySelector('#pageList').childElementCount; i++) {
-        document.querySelector('#page-link-' + i).addEventListener('click', pageLinkClicked);
-
-        // Handles the click event
-        function pageLinkClicked(e) {
-            // Remove active status on each page list
-            document.querySelector('#pageList').children
-                .forEach(e => e.classList.remove('active'));
-
-            // Figure out which button was clicked
-            switch (e.target.innerText) {
-                case 'Previous':
-                    console.log('Previous pressed!');
-                    if (currentPage !== 1)
-                        currentPage -= 1;
-                    break;
-                case 'Next':
-                    console.log('Next pressed!');
-                    if (currentPage !== 1576)
-                        currentPage += 1;
-                    break;
-                default:
-                    // 'Numbered' button was clicked
-                    try { currentPage = parseInt(e.target.innerText) }
-                    catch(error) { console.log(error) }
-                    break;
-            }
-            requestAPI();
-        }
-    }
+    // Load all the event listeners
+    loadEventListeners();
 });
