@@ -14,6 +14,7 @@ window.addEventListener('load', function() {
     let search;
     let format;
     let sort;
+    let isAdult = false;
 
     // Set the url endpoint for the API
     const url = 'https://graphql.anilist.co';
@@ -21,7 +22,7 @@ window.addEventListener('load', function() {
     // Set the query for the request
     const query =
     `
-        query ($page: Int, $format: MediaFormat, $search: String, $sort: [MediaSort]) {
+        query ($page: Int, $format: MediaFormat, $search: String, $sort: [MediaSort], $isAdult: Boolean) {
             Page (page: $page) {
                 pageInfo {
                     total
@@ -30,7 +31,7 @@ window.addEventListener('load', function() {
                     lastPage
                     hasNextPage
                 }
-                media (format: $format, search: $search, sort: $sort) {
+                media (format: $format, search: $search, sort: $sort, isAdult: $isAdult) {
                     id
                     type
                     siteUrl
@@ -135,6 +136,12 @@ window.addEventListener('load', function() {
             requestAPI();
         }
     }
+
+    // Add a click event listener on the adult toggle
+    document.querySelector('#adultToggle').addEventListener('change', function(e) {
+        isAdult = this.checked;
+        requestAPI();
+    });
 
     // Add a click event listener on each link in the pagination
     for (let i = 0; i < document.querySelector('#pageList').childElementCount; i++) {
@@ -304,6 +311,7 @@ window.addEventListener('load', function() {
             search: search,
             sort: sort,
             format: format,
+            isAdult: isAdult,
         };
 
         console.dir(variables);
