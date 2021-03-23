@@ -41,7 +41,6 @@ async function loadFormatFilter() {
     </ul>
     <div id="selectedFormat" class="h5 text-center mt-2">All</div>
     `;
-    console.log(formatFilter)
     return formatFilter;
 }
 

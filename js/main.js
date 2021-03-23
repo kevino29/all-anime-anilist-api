@@ -49,11 +49,12 @@ const query =
 window.addEventListener('load', async function() {
     // Get the search box
     searchBox = document.querySelector('#searchBox');
-    // Get the pagination ul
-    pagination = document.querySelector('#pageList');
 
     // Load all the filters
     await loadFilters();
+
+    // Load the pagination
+    pagination = await loadPagination();
 
     // Load the results container
     results = loadResultsContainer();
