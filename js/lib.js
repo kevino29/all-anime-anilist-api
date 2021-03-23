@@ -1,7 +1,7 @@
-function loadResultsContainer() {
+async function loadResultsContainer() {
     let resultContainer = document.createElement('div');
     resultContainer.classList.add('row', 'justify-content-center', 'py-5', 'mx-auto');
-    
+
     content.appendChild(resultContainer);
     return resultContainer;
 }

@@ -1,4 +1,4 @@
-function loadEventListeners() {
+async function loadEventListeners() {
     // Add an event listener for searching media
     document.querySelector('#searchButton').addEventListener('click', function () {
         if (searchBox.value !== null && searchBox.value !== undefined && searchBox.value.length !== 0)

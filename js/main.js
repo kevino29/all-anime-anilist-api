@@ -1,14 +1,7 @@
 // Global vars
-let content;
-let results;
-let searchBox;
-let pagination;
+let content, results, searchBox, pagination;
+let lastPage, search, format, genre, sort;
 let currentPage = 1;
-let lastPage;
-let search;
-let format;
-let genre;
-let sort;
 let reverseSort = false;
 let isAdult = false;
 
@@ -57,11 +50,11 @@ window.addEventListener('load', async function() {
     pagination = await loadPagination();
 
     // Load the results container
-    results = loadResultsContainer();
-
-    // Initial call to load the first medias
-    requestAPI(true);
+    results = await loadResultsContainer();
 
     // Load all the event listeners
-    loadEventListeners();
+    await loadEventListeners();
+
+    // Initial call to load the first medias
+    await requestAPI(true);
 });
