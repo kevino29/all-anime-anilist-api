@@ -1,175 +1,131 @@
 async function loadFilters() {
     content = document.querySelector('#content');
-    content.appendChild(await loadFormatFilter());
-    content.appendChild(await loadGenreFilter());
-    content.appendChild(await loadSortFilter());
+    await loadAllFilterDropdowns();
     content.appendChild(await loadAdultToggle());
 }
 
-async function loadFormatFilter() {
-    let formatFilter = document.createElement('div');
-    formatFilter.classList.add('dropdown', 'd-inline-block', 'mr-2');
+async function loadAllFilterDropdowns() {
+    let whichFilter;
 
-    let formatButton = document.createElement('button');
-    formatButton.classList.add('btn', 'btn-primary', 'dropdown-toggle');
-    formatButton.id = 'formatDropdown';
-    formatButton.setAttribute('type', 'button');
-    formatButton.setAttribute('data-mdb-toggle', 'dropdown');
-    formatButton.setAttribute('aria-expanded', 'false');
-    formatButton.innerText = 'Format ';
-
-    let formatList = document.createElement('ul');
-    formatList.classList.add('dropdown-menu');
-    formatList.id = 'formatList';
-    formatList.setAttribute('aria-labelledby', 'formatDropdown');
-
-    formatFilter.appendChild(formatButton);
-    
-    formatButtonTexts.map(e => {
-        let newListItem = document.createElement('li');
-        let newListItemBtn = document.createElement('button');
-        newListItemBtn.classList.add('dropdown-item');
-
-        if (e === 'OVA') {
-            newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
-            newListItemBtn.setAttribute('data-mdb-placement', 'right');
-            newListItemBtn.setAttribute('title', 'Original Video Animation');
-        }
-        else if (e === 'ONA') {
-            newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
-            newListItemBtn.setAttribute('data-mdb-placement', 'right');
-            newListItemBtn.setAttribute('title', 'Original Net Animation');
+    buttonTexts.map((arr, i) => {
+        switch (i) {
+            case 0:
+                whichFilter = 'Format';
+                break;
+            case 1:
+                whichFilter = 'Genre';
+                break;
+            case 2:
+                whichFilter = 'Sort By';
+                break;
         }
 
-        newListItemBtn.innerText = e;
-        newListItem.appendChild(newListItemBtn);
-        formatList.appendChild(newListItem);
+        // Create the dropdown
+        let dropdown = document.createElement('div');
+        dropdown.classList.add('dropdown', 'd-inline-block', 'mr-2');
 
-        if (e === 'All') {
-            newListItem = document.createElement('li');
-            let newListItemSeparator = document.createElement('hr');
-            newListItemSeparator.classList.add('dropdown-divider');
-            newListItem.appendChild(newListItemSeparator);
-            formatList.appendChild(newListItem);
+        // Create the button for the dropdown
+        let dropdownButton = document.createElement('button');
+        dropdownButton.classList.add('btn', 'btn-primary', 'dropdown-toggle');
+        dropdownButton.id = whichFilter.toLowerCase().replace(' ', '-');
+        dropdownButton.setAttribute('type', 'button');
+        dropdownButton.setAttribute('data-mdb-toggle', 'dropdown');
+        dropdownButton.setAttribute('aria-expanded', 'false');
+        dropdownButton.innerText = whichFilter + ' ';
+
+        // Create the list for the dropdown
+        let dropdownList = document.createElement('ul');
+        dropdownList.classList.add('dropdown-menu');
+        dropdownList.id = whichFilter.toLowerCase().replace(' ', '-') + '-list';
+        dropdownList.setAttribute('aria-labelledby', whichFilter.toLowerCase().replace(' ', '-'));
+
+        // Add the button to the dropdown
+        dropdown.appendChild(dropdownButton);
+
+        // Get the button text constants and fill the list
+        arr.map(text => {
+            // Create a list item and a button for the list item
+            let newListItem = document.createElement('li');
+            let newListItemBtn = document.createElement('button');
+            newListItemBtn.classList.add('dropdown-item');
+
+            if (text === 'OVA' || text === 'ONA' || text === 'Mahou Shoujo') {
+                // Add tooltip for the buttons
+                newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
+                newListItemBtn.setAttribute('data-mdb-placement', 'right');
+
+                switch(text) {
+                    case 'OVA':
+                        newListItemBtn.setAttribute('title', 'Original Video Animation');
+                        break;
+                    case 'ONA':
+                        newListItemBtn.setAttribute('title', 'Original Net Animation');
+                        break;
+                    case 'Mahou Shoujo':
+                        newListItemBtn.setAttribute('title', 'Magical Girls');
+                        break;
+                }
+            }
+
+            // Set the text of the button
+            newListItemBtn.innerText = text;
+
+            // Append the button to the list item
+            // Then append the list item to the list
+            newListItem.appendChild(newListItemBtn);
+            dropdownList.appendChild(newListItem);
+
+            // Add a dropdown divider after the 'All' button
+            if (text === 'All' || text === 'None') {
+                newListItem = document.createElement('li');
+                let newListItemSeparator = document.createElement('hr');
+                newListItemSeparator.classList.add('dropdown-divider');
+                newListItem.appendChild(newListItemSeparator);
+                dropdownList.appendChild(newListItem);
+            }
+        });
+
+        // Add the list to the dropdown
+        dropdown.appendChild(dropdownList);
+
+        // Create the selected display
+        let display = document.createElement('div');
+        display.id = 'selected' + whichFilter;
+        display.classList.add('h5', 'text-center', 'text-muted', 'mt-2');
+
+        if (i !== 2) {
+            // For Format and Genre
+            display.innerText = arr[0];
         }
+        else {
+            // For Sorting
+            let selectedSortText = document.createElement('span');
+            selectedSortText.id = 'selectedSortText';
+            selectedSortText.classList.add('mr-1');
+            selectedSortText.innerText = arr[0];
+
+            let reverseSortToggle = document.createElement('span');
+            reverseSortToggle.id = 'reverseSortToggle';
+            reverseSortToggle.classList.add('btn-sm', 'btn-primary');
+            reverseSortToggle.style.cursor = 'pointer';
+
+            let sortIcon = document.createElement('i');
+            sortIcon.classList.add('fas', 'fa-sort');
+
+            // Add the icon to the toggle
+            reverseSortToggle.appendChild(sortIcon);
+
+            // Add the sort text and the toggle to the display
+            display.appendChild(selectedSortText);
+            display.appendChild(reverseSortToggle);
+        }
+
+        // Add the display to the dropdown
+        dropdown.appendChild(display);
+
+        // Add the dropdown to the content container
+        content.appendChild(dropdown);
     });
-    formatFilter.appendChild(formatList);
-
-    let selectedFormat = document.createElement('div');
-    selectedFormat.id = 'selectedFormat';
-    selectedFormat.classList.add('h5', 'text-center', 'text-muted', 'mt-2');
-    selectedFormat.innerText = 'All';
-
-    formatFilter.appendChild(selectedFormat);
-    
-    // formatFilter.innerHTML =
-    // `
-    // <button
-    //     class="btn btn-primary dropdown-toggle"
-    //     type="button"
-    //     id="formatDropdown"
-    //     data-mdb-toggle="dropdown"
-    //     aria-expanded="false">
-    //     Format
-    // </button>
-    // <ul id="formatList" class="dropdown-menu" aria-labelledby="formatDropdown">
-    //     <li><button class="dropdown-item">All</button></li>
-    //     <li><hr class="dropdown-divider"></li>
-    //     <li><button class="dropdown-item">TV</button></li>
-    //     <li><button class="dropdown-item">TV Short</button></li>
-    //     <li><button class="dropdown-item">Movie</button></li>
-    //     <li><button class="dropdown-item">Special</button></li>
-    //     <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
-    //         data-mdb-placement="right" title="Original Video Animation">
-    //             OVA
-    //         </button>
-    //     </li>
-    //     <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
-    //         data-mdb-placement="right" title="Original Net Animation">ONA</button></li>
-    //     <li><button class="dropdown-item">Music</button></li>
-    //     <li><button class="dropdown-item">Manga</button></li>
-    //     <li><button class="dropdown-item">Novel</button></li>
-    //     <li><button class="dropdown-item">One Shot</button></li>
-    // </ul>
-    // <div id="selectedFormat" class="h5 text-center mt-2">All</div>
-    // `;
-    return formatFilter;
-}
-
-async function loadGenreFilter() {
-    let genreFilter = document.createElement('div');
-    genreFilter.classList.add('dropdown', 'd-inline-block', 'mr-2');
-    
-    genreFilter.innerHTML =
-    `
-    <button
-        class="btn btn-primary dropdown-toggle"
-        type="button"
-        id="genreDropdown"
-        data-mdb-toggle="dropdown"
-        aria-expanded="false">
-        Genre
-    </button>
-    <ul id="genreList" class="dropdown-menu" aria-labelledby="genreDropdown">
-        <li><button class="dropdown-item">All</button></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><button class="dropdown-item">Action</button></li>
-        <li><button class="dropdown-item">Adventure</button></li>
-        <li><button class="dropdown-item">Comedy</button></li>
-        <li><button class="dropdown-item">Drama</button></li>
-        <li><button class="dropdown-item">Ecchi</button></li>
-        <li><button class="dropdown-item">Fantasy</button></li>
-        <li><button class="dropdown-item">Horror</button></li>
-        <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
-            data-mdb-placement="right" title="English: Magical Girl">
-                Mahou Shoujo
-            </button>
-        </li>
-        <li><button class="dropdown-item">Mecha</button></li>
-        <li><button class="dropdown-item">Music</button></li>
-        <li><button class="dropdown-item">Mystery</button></li>
-        <li><button class="dropdown-item">Psychological</button></li>
-        <li><button class="dropdown-item">Romance</button></li>
-        <li><button class="dropdown-item">Sci-Fi</button></li>
-        <li><button class="dropdown-item">Slice of Life</button></li>
-        <li><button class="dropdown-item">Sports</button></li>
-        <li><button class="dropdown-item">Supernatural</button></li>
-        <li><button class="dropdown-item">Thriller</button></li>
-    </ul>
-    <div id="selectedGenre" class="h5 text-center mt-2">All</div>
-    `;
-    return genreFilter;
-}
-
-async function loadSortFilter() {
-    let sortFilter = document.createElement('div');
-    sortFilter.classList.add('dropdown', 'd-inline-block', 'mr-2');
-    
-    sortFilter.innerHTML =
-    `
-    <button
-        class="btn btn-primary dropdown-toggle"
-        type="button"
-        id="sortByDropdown"
-        data-mdb-toggle="dropdown"
-        aria-expanded="false">
-        Sort by
-    </button>
-    <ul id="sortByList" class="dropdown-menu" aria-labelledby="sortByDropdown">
-        <li><button class="dropdown-item">None</button></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><button id="sortByTitle" class="dropdown-item">Title</button></li>
-        <li><button id="sortByPop" class="dropdown-item">Popularity</button></li>
-        <li><button id="sortByTrend" class="dropdown-item">Trending</button></li>
-    </ul>
-    <div id="selectedSort" class="h5 text-center mt-2">
-        <span id="selectedSortText">None</span>
-        <span id="reverseSortToggle" class="btn-sm btn-primary" style="cursor:pointer">
-            <i class="fas fa-sort"></i>
-        </span>
-    </div>
-    `;
-    return sortFilter;
 }
 
 async function loadAdultToggle() {
