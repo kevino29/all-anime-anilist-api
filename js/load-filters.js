@@ -9,38 +9,90 @@ async function loadFilters() {
 async function loadFormatFilter() {
     let formatFilter = document.createElement('div');
     formatFilter.classList.add('dropdown', 'd-inline-block', 'mr-2');
+
+    let formatButton = document.createElement('button');
+    formatButton.classList.add('btn', 'btn-primary', 'dropdown-toggle');
+    formatButton.id = 'formatDropdown';
+    formatButton.setAttribute('type', 'button');
+    formatButton.setAttribute('data-mdb-toggle', 'dropdown');
+    formatButton.setAttribute('aria-expanded', 'false');
+    formatButton.innerText = 'Format ';
+
+    let formatList = document.createElement('ul');
+    formatList.classList.add('dropdown-menu');
+    formatList.id = 'formatList';
+    formatList.setAttribute('aria-labelledby', 'formatDropdown');
+
+    formatFilter.appendChild(formatButton);
     
-    formatFilter.innerHTML =
-    `
-    <button
-        class="btn btn-primary dropdown-toggle"
-        type="button"
-        id="formatDropdown"
-        data-mdb-toggle="dropdown"
-        aria-expanded="false">
-        Format
-    </button>
-    <ul id="formatList" class="dropdown-menu" aria-labelledby="formatDropdown">
-        <li><button class="dropdown-item">All</button></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><button class="dropdown-item">TV</button></li>
-        <li><button class="dropdown-item">TV Short</button></li>
-        <li><button class="dropdown-item">Movie</button></li>
-        <li><button class="dropdown-item">Special</button></li>
-        <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
-            data-mdb-placement="right" title="Original Video Animation">
-                OVA
-            </button>
-        </li>
-        <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
-            data-mdb-placement="right" title="Original Net Animation">ONA</button></li>
-        <li><button class="dropdown-item">Music</button></li>
-        <li><button class="dropdown-item">Manga</button></li>
-        <li><button class="dropdown-item">Novel</button></li>
-        <li><button class="dropdown-item">One Shot</button></li>
-    </ul>
-    <div id="selectedFormat" class="h5 text-center mt-2">All</div>
-    `;
+    formatButtonTexts.map(e => {
+        let newListItem = document.createElement('li');
+        let newListItemBtn = document.createElement('button');
+        newListItemBtn.classList.add('dropdown-item');
+
+        if (e === 'OVA') {
+            newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
+            newListItemBtn.setAttribute('data-mdb-placement', 'right');
+            newListItemBtn.setAttribute('title', 'Original Video Animation');
+        }
+        else if (e === 'ONA') {
+            newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
+            newListItemBtn.setAttribute('data-mdb-placement', 'right');
+            newListItemBtn.setAttribute('title', 'Original Net Animation');
+        }
+
+        newListItemBtn.innerText = e;
+        newListItem.appendChild(newListItemBtn);
+        formatList.appendChild(newListItem);
+
+        if (e === 'All') {
+            newListItem = document.createElement('li');
+            let newListItemSeparator = document.createElement('hr');
+            newListItemSeparator.classList.add('dropdown-divider');
+            newListItem.appendChild(newListItemSeparator);
+            formatList.appendChild(newListItem);
+        }
+    });
+    formatFilter.appendChild(formatList);
+
+    let selectedFormat = document.createElement('div');
+    selectedFormat.id = 'selectedFormat';
+    selectedFormat.classList.add('h5', 'text-center', 'text-muted', 'mt-2');
+    selectedFormat.innerText = 'All';
+
+    formatFilter.appendChild(selectedFormat);
+    
+    // formatFilter.innerHTML =
+    // `
+    // <button
+    //     class="btn btn-primary dropdown-toggle"
+    //     type="button"
+    //     id="formatDropdown"
+    //     data-mdb-toggle="dropdown"
+    //     aria-expanded="false">
+    //     Format
+    // </button>
+    // <ul id="formatList" class="dropdown-menu" aria-labelledby="formatDropdown">
+    //     <li><button class="dropdown-item">All</button></li>
+    //     <li><hr class="dropdown-divider"></li>
+    //     <li><button class="dropdown-item">TV</button></li>
+    //     <li><button class="dropdown-item">TV Short</button></li>
+    //     <li><button class="dropdown-item">Movie</button></li>
+    //     <li><button class="dropdown-item">Special</button></li>
+    //     <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
+    //         data-mdb-placement="right" title="Original Video Animation">
+    //             OVA
+    //         </button>
+    //     </li>
+    //     <li><button class="dropdown-item" data-mdb-toggle="tooltip" 
+    //         data-mdb-placement="right" title="Original Net Animation">ONA</button></li>
+    //     <li><button class="dropdown-item">Music</button></li>
+    //     <li><button class="dropdown-item">Manga</button></li>
+    //     <li><button class="dropdown-item">Novel</button></li>
+    //     <li><button class="dropdown-item">One Shot</button></li>
+    // </ul>
+    // <div id="selectedFormat" class="h5 text-center mt-2">All</div>
+    // `;
     return formatFilter;
 }
 
