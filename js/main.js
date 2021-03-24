@@ -5,6 +5,20 @@ let currentPage = 1;
 let reverseSort = false;
 let isAdult = false;
 
+// Set the format button texts
+const formatButtonTexts = 
+    ['All', 'TV', 'TV Short', 'Movie', 'Special', 'OVA',
+     'ONA', 'Music', 'Manga', 'Novel', 'One Shot'];
+
+// Set the genre button texts
+const genreButtonTexts =
+    ['All', 'Action', 'Adveture', 'Comdey', 'Drama', 'Ecchi', 'Fantasy', 'Horror',
+     'Maho Shoujo', 'Mecha', 'Music', 'Mystery' , 'Psychological', 'Romance',
+     'Sci-Fi', 'Slice of Life', 'Sports', 'Supernatural', 'Thriller'];
+
+// Set the sort button texts
+const sortButtonTexts = ['None', 'Title', 'Popularity', 'Trending'];
+    
 // Set the url endpoint for the API
 const url = 'https://graphql.anilist.co';
 
