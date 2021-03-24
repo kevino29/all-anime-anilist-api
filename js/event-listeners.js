@@ -48,13 +48,16 @@ async function loadEventListeners() {
 
         function sortEventHandler(e) {
             switch(e.target.innerText.toUpperCase()) {
-                case "TITLE":
+                case 'TITLE':
                     sort = 'TITLE_ENGLISH_DESC';
                     break;
-                case "POPULARITY":
+                case 'SCORE':
+                    sort = 'SCORE_DESC';
+                    break;
+                case 'POPULARITY':
                     sort = 'POPULARITY_DESC';
                     break;
-                case "TRENDING":
+                case 'TRENDING':
                     sort = 'TRENDING_DESC';
                     break;
                 default:

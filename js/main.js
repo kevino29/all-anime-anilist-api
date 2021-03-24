@@ -13,7 +13,7 @@ const buttonTexts =
         ['All', 'Action', 'Adventure', 'Comedy', 'Drama', 'Ecchi', 'Fantasy', 'Horror',
          'Mahou Shoujo', 'Mecha', 'Music', 'Mystery' , 'Psychological', 'Romance',
          'Sci-Fi', 'Slice of Life', 'Sports', 'Supernatural', 'Thriller'],
-        ['None', 'Title', 'Popularity', 'Trending']
+        ['None', 'Title', 'Score', 'Popularity', 'Trending']
     ];
     
 // Set the url endpoint for the API
