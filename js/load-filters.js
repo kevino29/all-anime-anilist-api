@@ -5,24 +5,7 @@ async function loadFilters() {
 }
 
 async function loadAllFilterDropdowns() {
-    let whichFilter;
-
-    buttonTexts.map((arr, i) => {
-        switch (i) {
-            case 0:
-                whichFilter = 'Format';
-                break;
-            case 1:
-                whichFilter = 'Genre';
-                break;
-            case 2:
-                whichFilter = 'Tag';
-                break;
-            case 3:
-                whichFilter = 'Sort By';
-                break;
-        }
-
+    buttonTexts.map(filter => {
         // Create the dropdown
         let dropdown = document.createElement('div');
         dropdown.classList.add('dropdown', 'd-inline-block', 'text-center', 'mr-2');
@@ -30,27 +13,50 @@ async function loadAllFilterDropdowns() {
         // Create the button for the dropdown
         let dropdownButton = document.createElement('button');
         dropdownButton.classList.add('btn', 'btn-primary', 'dropdown-toggle');
-        dropdownButton.id = whichFilter.toLowerCase().replace(' ', '-');
+        dropdownButton.id = filter.title.toLowerCase().replace(' ', '-');
         dropdownButton.setAttribute('type', 'button');
         dropdownButton.setAttribute('data-mdb-toggle', 'dropdown');
         dropdownButton.setAttribute('aria-expanded', 'false');
-        dropdownButton.innerText = whichFilter + ' ';
+        dropdownButton.innerText = filter.title + ' ';
 
         // Create the list for the dropdown
         let dropdownList = document.createElement('ul');
         dropdownList.classList.add('dropdown-menu');
-        dropdownList.id = whichFilter.toLowerCase().replace(' ', '-') + '-list';
-        dropdownList.setAttribute('aria-labelledby', whichFilter.toLowerCase().replace(' ', '-'));
+        dropdownList.id = filter.title.toLowerCase().replace(' ', '-') + '-list';
+        dropdownList.setAttribute('aria-labelledby', filter.title.toLowerCase().replace(' ', '-'));
 
         // Add the button to the dropdown
         dropdown.appendChild(dropdownButton);
 
         // Get the button text constants and fill the list
-        arr.map(text => {
+        filter.list.map((text, i) => {
             // Create a list item and a button for the list item
             let newListItem = document.createElement('li');
             let newListItemBtn = document.createElement('button');
             newListItemBtn.classList.add('dropdown-item');
+
+            // Add the default at the top of the list
+            // Add a divider as well
+            if (i === 0) {
+                // Create a list item and a button for the list item
+                let firstListItem = document.createElement('li');
+                let firstListItemBtn = document.createElement('button');
+                firstListItemBtn.classList.add('dropdown-item');
+
+                // Set the text of the button
+                firstListItemBtn.innerText = filter.default;
+
+                // Append the button to the list item
+                // Then append the list item to the list
+                firstListItem.appendChild(firstListItemBtn);
+                dropdownList.appendChild(firstListItem);
+
+                newListItem = document.createElement('li');
+                let newListItemSeparator = document.createElement('hr');
+                newListItemSeparator.classList.add('dropdown-divider');
+                newListItem.appendChild(newListItemSeparator);
+                dropdownList.appendChild(newListItem);
+            }
 
             if (text === 'OVA' || text === 'ONA' || text === 'Mahou Shoujo') {
                 // Add tooltip for the buttons
@@ -77,15 +83,6 @@ async function loadAllFilterDropdowns() {
             // Then append the list item to the list
             newListItem.appendChild(newListItemBtn);
             dropdownList.appendChild(newListItem);
-
-            // Add a dropdown divider after the 'All' button
-            if (text === 'All' || text === 'None') {
-                newListItem = document.createElement('li');
-                let newListItemSeparator = document.createElement('hr');
-                newListItemSeparator.classList.add('dropdown-divider');
-                newListItem.appendChild(newListItemSeparator);
-                dropdownList.appendChild(newListItem);
-            }
         });
 
         // Add the list to the dropdown
@@ -93,32 +90,35 @@ async function loadAllFilterDropdowns() {
 
         // Create the selected display
         let display = document.createElement('div');
-        display.id = 'selected' + whichFilter;
+        display.id = 'selected' + filter.title;
         display.classList.add('h5', 'text-center', 'text-muted', 'mt-2');
 
-        if (i !== 3) {
+        if (filter.title !== 'Sort By') {
             // For Format and Genre
-            display.innerText = arr[0];
+            display.innerText = filter.default;
         }
         else {
             // For Sorting
+            // Create the display text
             let selectedSortText = document.createElement('span');
             selectedSortText.id = 'selectedSortText';
             selectedSortText.classList.add('mr-1');
-            selectedSortText.innerText = arr[0];
+            selectedSortText.innerText = filter.default;
 
+            // Create the toggle button
             let reverseSortToggle = document.createElement('span');
             reverseSortToggle.id = 'reverseSortToggle';
-            reverseSortToggle.classList.add('btn-sm', 'btn-primary');
+            reverseSortToggle.classList.add('btn-sm', 'btn-primary', 'disabled');
             reverseSortToggle.style.cursor = 'pointer';
 
+            // Create the toggle icon
             let sortIcon = document.createElement('i');
             sortIcon.classList.add('fas', 'fa-sort');
 
-            // Add the icon to the toggle
+            // Add the icon to the toggle button
             reverseSortToggle.appendChild(sortIcon);
 
-            // Add the sort text and the toggle to the display
+            // Add the sort text and the toggle button to the display
             display.appendChild(selectedSortText);
             display.appendChild(reverseSortToggle);
         }
