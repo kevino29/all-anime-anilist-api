@@ -10,8 +10,8 @@ async function loadEventListeners() {
     });
 
     // Add a click event listener to each format buttons
-    for (let i = 0; i < document.querySelector('#formatList').children.length; i++) {
-        document.querySelector('#formatList').children[i]
+    for (let i = 0; i < document.querySelector('#format-list').children.length; i++) {
+        document.querySelector('#format-list').children[i]
             .addEventListener('click', formatEventHandler);
 
         function formatEventHandler(e) {
@@ -26,8 +26,8 @@ async function loadEventListeners() {
     }
 
     // Add a click event listener to each genre buttons
-    for (let i = 0; i < document.querySelector('#genreList').children.length; i++) {
-        document.querySelector('#genreList').children[i]
+    for (let i = 0; i < document.querySelector('#genre-list').children.length; i++) {
+        document.querySelector('#genre-list').children[i]
             .addEventListener('click', genreEventHandler);
 
         function genreEventHandler(e) {
@@ -42,8 +42,8 @@ async function loadEventListeners() {
     }
 
     // Add a click event listener to each sort by buttons
-    for (let i = 0; i < document.querySelector('#sortByList').children.length; i++) {
-        document.querySelector('#sortByList').children[i]
+    for (let i = 0; i < document.querySelector('#sort-by-list').children.length; i++) {
+        document.querySelector('#sort-by-list').children[i]
             .addEventListener('click', sortEventHandler);
 
         function sortEventHandler(e) {
