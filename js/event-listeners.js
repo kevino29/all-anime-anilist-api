@@ -47,7 +47,7 @@ async function loadEventListeners() {
             .addEventListener('click', tagEventHandler);
 
         function tagEventHandler(e) {
-            if (e.target.innerText !== 'All')
+            if (e.target.innerText !== 'None')
                 tag = e.target.innerText.toUpperCase();
             else
                 tag = undefined;
