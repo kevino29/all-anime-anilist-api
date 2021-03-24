@@ -17,6 +17,9 @@ const query =
                 id
                 type
                 siteUrl
+                tags {
+                    name
+                }
                 title {
                     romaji
                     english
