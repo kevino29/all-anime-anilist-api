@@ -153,8 +153,6 @@ async function requestAPI(reset) {
         isAdult: isAdult,
     };
 
-    console.dir(variables);
-
     // Define the config for the API request
     let options = {
         method: 'POST',
@@ -185,7 +183,7 @@ function handleResponse(response) {
 }
 
 function handleData(json) {
-    console.dir(json);
+    // console.dir(json);
     
     clearContent();
 

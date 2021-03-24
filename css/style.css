@@ -420,6 +420,36 @@ hr.flaired-edges:before {
     height: 350px;
 }
 
+@media (max-width: 474px) {
+    .card-img-md {
+        height: 200px;
+    }
+    .card-md {
+        width: 150px;
+        height: 300px;
+    }
+}
+
+@media (max-width: 414px) {
+    .card-img-md {
+        height: 180px;
+    }
+    .card-md {
+        width: 120px;
+        height: 280px;
+    }
+}
+
+@media (max-width: 354px) {
+    .card-img-md {
+        height: 180px;
+    }
+    .card-md {
+        width: 100px;
+        height: 260px;
+    }
+}
+
 .scroll-top-btn {
     display: none;
     position: fixed;
