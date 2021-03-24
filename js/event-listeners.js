@@ -15,6 +15,8 @@ async function loadEventListeners() {
             .addEventListener('click', formatEventHandler);
 
         function formatEventHandler(e) {
+            if (e.target.nodeName === 'HR') return;
+
             if (e.target.innerText !== 'All')
                 format = e.target.innerText.toUpperCase().replace(' ', '_');
             else
@@ -31,6 +33,8 @@ async function loadEventListeners() {
             .addEventListener('click', genreEventHandler);
 
         function genreEventHandler(e) {
+            if (e.target.nodeName === 'HR') return;
+
             if (e.target.innerText !== 'All')
                 genre = e.target.innerText.toUpperCase();
             else
@@ -47,6 +51,8 @@ async function loadEventListeners() {
             .addEventListener('click', tagEventHandler);
 
         function tagEventHandler(e) {
+            if (e.target.nodeName === 'HR') return;
+
             if (e.target.innerText !== 'None')
                 tag = e.target.innerText.toUpperCase();
             else
@@ -63,6 +69,11 @@ async function loadEventListeners() {
             .addEventListener('click', sortEventHandler);
 
         function sortEventHandler(e) {
+            if (e.target.nodeName === 'HR') return;
+
+            let toggleButton = document.querySelector('#reverseSortToggle');
+            toggleButton.classList.remove('disabled');
+
             switch(e.target.innerText.toUpperCase()) {
                 case 'TITLE':
                     sort = 'TITLE_ENGLISH_DESC';
@@ -78,6 +89,7 @@ async function loadEventListeners() {
                     break;
                 default:
                     sort = undefined;
+                    toggleButton.classList.add('disabled');
                     break;
             }
             document.querySelector('#selectedSortText').innerText = e.target.innerText;
