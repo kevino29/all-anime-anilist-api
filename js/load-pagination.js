@@ -1,7 +1,7 @@
 async function loadPagination() {
     let pageNav = document.createElement('nav');
     pageNav.setAttribute('aria-label', 'Page Navigation');
-    pageNav.classList.add('sticky-top', 'pt-2');
+    pageNav.classList.add('sticky-top', 'mt-4', 'pt-2');
     pageNav.style.zIndex = 1;
 
     pageNav.innerHTML =

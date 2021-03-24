@@ -41,6 +41,22 @@ async function loadEventListeners() {
         }
     }
 
+    // Add a click event listener to each tag buttons
+    for (let i = 0; i < document.querySelector('#tag-list').children.length; i++) {
+        document.querySelector('#tag-list').children[i]
+            .addEventListener('click', tagEventHandler);
+
+        function tagEventHandler(e) {
+            if (e.target.innerText !== 'All')
+                tag = e.target.innerText.toUpperCase();
+            else
+                tag = undefined;
+            
+            document.querySelector('#selectedTag').innerText = e.target.innerText;
+            requestAPI(true);
+        }
+    }
+
     // Add a click event listener to each sort by buttons
     for (let i = 0; i < document.querySelector('#sort-by-list').children.length; i++) {
         document.querySelector('#sort-by-list').children[i]

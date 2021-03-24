@@ -16,13 +16,16 @@ async function loadAllFilterDropdowns() {
                 whichFilter = 'Genre';
                 break;
             case 2:
+                whichFilter = 'Tag';
+                break;
+            case 3:
                 whichFilter = 'Sort By';
                 break;
         }
 
         // Create the dropdown
         let dropdown = document.createElement('div');
-        dropdown.classList.add('dropdown', 'd-inline-block', 'mr-2');
+        dropdown.classList.add('dropdown', 'd-inline-block', 'text-center', 'mr-2');
 
         // Create the button for the dropdown
         let dropdownButton = document.createElement('button');
@@ -93,7 +96,7 @@ async function loadAllFilterDropdowns() {
         display.id = 'selected' + whichFilter;
         display.classList.add('h5', 'text-center', 'text-muted', 'mt-2');
 
-        if (i !== 2) {
+        if (i !== 3) {
             // For Format and Genre
             display.innerText = arr[0];
         }

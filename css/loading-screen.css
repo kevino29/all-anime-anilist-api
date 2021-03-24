@@ -13,9 +13,9 @@
 }
 
 .loader {
-    position: absolute;
+    position: relative;
     left: 50%;
-    top: 50%;
+    top: 20%;
     z-index: 1;
     width: 120px;
     height: 120px;
