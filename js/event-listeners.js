@@ -35,10 +35,12 @@ async function loadEventListeners() {
         function genreEventHandler(e) {
             if (e.target.nodeName === 'HR') return;
 
-            if (e.target.innerText !== 'All')
-                genre = e.target.innerText.toUpperCase();
+            if (e.target.innerText !== 'All') {
+                genres = [];
+                genres.push(e.target.innerText.toUpperCase());
+            }
             else
-                genre = undefined;
+                genres = undefined;
 
             document.querySelector('#selectedGenre').innerText = e.target.innerText;
             requestAPI(true);
