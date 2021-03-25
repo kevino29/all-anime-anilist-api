@@ -148,7 +148,7 @@ async function requestAPI(reset) {
         search: search,
         format: format,
         genres: genres,
-        tag: tag,
+        tags: tags,
         sort: sort,
         isAdult: isAdult,
     };

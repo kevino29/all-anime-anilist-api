@@ -55,8 +55,10 @@ async function loadEventListeners() {
         function tagEventHandler(e) {
             if (e.target.nodeName === 'HR') return;
 
-            if (e.target.innerText !== 'None')
-                tag = e.target.innerText.toUpperCase();
+            if (e.target.innerText !== 'None') {
+                tags = [];
+                tags.push(e.target.innerText.toUpperCase());
+            }
             else
                 tag = undefined;
             

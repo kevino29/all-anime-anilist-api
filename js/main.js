@@ -1,6 +1,6 @@
 // Global vars
 let content, results, searchBox, pagination;
-let lastPage, search, format, genres, tag, sort;
+let lastPage, search, format, genres, tags, sort;
 let currentPage = 1;
 let reverseSort = false;
 let isAdult = false;
