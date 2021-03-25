@@ -166,6 +166,9 @@ async function requestAPI(reset) {
         }),
     }
 
+    // CONSOLE THE VARIABLES
+    console.dir(variables)
+
     // Make the HTTP API request
     await fetch(url, options)
         .then(handleResponse)

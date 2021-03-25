@@ -60,7 +60,7 @@ async function loadEventListeners() {
                 tags.push(e.target.innerText.toUpperCase());
             }
             else
-                tag = undefined;
+                tags = undefined;
             
             document.querySelector('#selectedTag').innerText = e.target.innerText;
             requestAPI(true);
