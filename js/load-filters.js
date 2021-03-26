@@ -64,7 +64,7 @@ async function loadAllFilterDropdowns() {
                     secondListItemBtn.setAttribute('data-mdb-target', '#' + filter.title.toLowerCase() + '-modal');
 
                     // Set the text of the button
-                    secondListItemBtn.innerText = 'Select Multiple';
+                    secondListItemBtn.innerText = 'See all ' + filter.title.toLowerCase() + 's';
 
                     // Add the button to the list item
                     // Then add the list item to the list
@@ -171,6 +171,6 @@ async function loadAdultToggle() {
     adultToggle.appendChild(toggleInput);
     adultToggle.appendChild(toggleLabel);
     adultToggle.appendChild(padding);
-    
+
     return adultToggle;
 }

@@ -34,7 +34,7 @@ async function loadEventListeners() {
 
         async function genreEventHandler(e) {
             if (e.target.nodeName === 'HR' ||
-                e.target.innerText === 'Select Multiple') 
+                e.target.innerText === 'See all genres') 
                 return;
             else if (e.target.innerText !== 'None') {
                 genres = [];
@@ -55,7 +55,7 @@ async function loadEventListeners() {
 
         function tagEventHandler(e) {
             if (e.target.nodeName === 'HR' ||
-                e.target.innerText === 'Select Multiple')
+                e.target.innerText === 'See all tags')
                 return;
             else if (e.target.innerText !== 'None') {
                 tags = [];
@@ -133,13 +133,13 @@ async function loadEventListeners() {
                 .forEach(e => e.classList.remove('active'));
 
             // Figure out which button was clicked
-            switch (e.target.innerText) {
-                case 'Previous':
+            switch (e.target.innerText.toUpperCase()) {
+                case 'PREVIOUS':
                     console.log('Previous pressed!');
                     if (currentPage !== 1)
                         currentPage -= 1;
                     break;
-                case 'Next':
+                case 'NEXT':
                     console.log('Next pressed!');
                     if (currentPage !== 1576)
                         currentPage += 1;
