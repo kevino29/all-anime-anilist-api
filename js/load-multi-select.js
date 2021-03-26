@@ -18,7 +18,7 @@ function loadMultiSelect(filter, filterList) {
     modal.setAttribute('aria-labelledby', filter.toLowerCase() + '-modal-title');
     modal.setAttribute('aria-hidden', 'true');
 
-    modalDialog.classList.add('modal-dialog', 'modal-lg', 'modal-dialog-scrollable');
+    modalDialog.classList.add('modal-dialog', 'modal-dialog-centered');
     modalContent.classList.add('modal-content');
     modalHeader.classList.add('modal-header');
     modalTitle.id = filter.toLowerCase() + '-modal-title';
@@ -26,6 +26,10 @@ function loadMultiSelect(filter, filterList) {
     modalTitle.innerText = 'Choose ' + filter + '(s)';
     modalFooter.classList.add('modal-footer');
     modalBody.classList.add('modal-body', 'text-center');
+
+    // Make the modal bigger and scrollable if it is the Tag modal
+    if (filter === 'Tag')
+        modalDialog.classList.add('modal-lg', 'modal-dialog-scrollable');
 
     filterList.map((e, i) => {
         let formCheck = document.createElement('div');
@@ -119,12 +123,18 @@ function loadEventListener(filter, filterList) {
                 }
             });
 
-            if (genres && genres.length === 0)
+            if (genres && genres.length === 0) {
                 genres = undefined;
-            if (tags && tags.length === 0)
+                display.innerText = 'None';
+                requestAPI(true);
+            }
+            else if (tags && tags.length === 0) {
                 tags = undefined;
+                display.innerText = 'None';
+                requestAPI(true);
+            }
 
             if (display.innerText === 'Custom')
-                requestAPI();
+                requestAPI(true);
         });
 }
