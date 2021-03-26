@@ -149,16 +149,28 @@ async function loadAllFilterDropdowns() {
 async function loadAdultToggle() {
     let adultToggle = document.createElement('div');
     adultToggle.classList.add('form-check', 'form-switch', 'd-inline-block', 'float-right', 'mt-1');
+
+    let toggleInput = document.createElement('input');
+    toggleInput.id = 'adultToggle';
+    toggleInput.classList.add('form-check-input');
+    toggleInput.setAttribute('type', 'checkbox');
+
+    let toggleLabel = document.createElement('label');
+    toggleLabel.classList.add('form-check-label', 'ml-3', 'h5');
+    toggleLabel.setAttribute('for', 'adultToggle');
+    toggleLabel.setAttribute('data-mdb-toggle', 'tooltip');
+    toggleLabel.setAttribute('data-mdb-placement', 'bottom');
+    toggleLabel.setAttribute('data-mdb-animation', 'true');
+    toggleLabel.setAttribute('title', 'Only show adult media. \nNote: You need to be authorized in AniList to view adult medias.');
+    toggleLabel.innerText = '18+';
+
+    let padding = document.createElement('div');
+    padding.classList.add('h5', 'text-center', 'mt-2');
+    padding.innerHTML = '&nbsp;';
+
+    adultToggle.appendChild(toggleInput);
+    adultToggle.appendChild(toggleLabel);
+    adultToggle.appendChild(padding);
     
-    adultToggle.innerHTML =
-    `
-    <input id="adultToggle" class="form-check-input" type="checkbox"/>
-    <label class="form-check-label ml-3 h5" for="adultToggle"
-        data-mdb-toggle="tooltip" data-mdb-placement="bottom" data-mdb-animation="true"
-        title="Only show adult media. Note: You need to be authorized in AniList to view adult medias.">
-        18+
-    </label>
-    <div class="h5 text-center mt-2">&nbsp;</div>
-    `;
     return adultToggle;
 }
