@@ -80,15 +80,27 @@ function loadMultiSelect(filter, filterList) {
 function loadEventListener(filter, filterList) {
     document.querySelector('#' + filter.toLowerCase() + '-save-selected')
         .addEventListener('click', () => {
+            let display = document.querySelector('#selected' + filter);
+
+            switch(filter.toUpperCase()) {
+                case 'GENRE':
+                    genres = [];
+                    break;
+                case 'TAG':
+                    tags = [];
+                    break;
+                default:
+                    genres = [];
+                    tags = [];
+                    break;
+            }
+
             filterList.map((e, i) => {
                 let checkbox = document.querySelector('#' + filter.toLowerCase() + '-checkbox-' + i);
-
-                if (genres === undefined)
-                    genres = [];
-                if (tags === undefined)
-                    tags = [];
         
                 if (checkbox.checked) {
+                    display.innerText = 'Custom';
+
                     switch(filter.toUpperCase()) {
                         case 'GENRE':
                             genres.push(e);
@@ -97,18 +109,19 @@ function loadEventListener(filter, filterList) {
                             tags.push(e);
                             break;
                         default:
-                            genres = undefined;
-                            tags = undefined;
+                            genres = [];
+                            tags = [];
                             break;
                     }
                 }
             });
 
-            if (genres.length === 0)
+            if (genres && genres.length === 0)
                 genres = undefined;
-            if (tags.length === 0)
+            if (tags && tags.length === 0)
                 tags = undefined;
 
-            requestAPI();
+            if (display.innerText === 'Custom')
+                requestAPI();
         });
 }

@@ -36,7 +36,7 @@ async function loadEventListeners() {
             if (e.target.nodeName === 'HR' ||
                 e.target.innerText === 'Select Multiple') 
                 return;
-            else if (e.target.innerText !== 'All') {
+            else if (e.target.innerText !== 'None') {
                 genres = [];
                 genres.push(e.target.innerText.toUpperCase());
             }
