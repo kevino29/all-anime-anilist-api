@@ -501,3 +501,7 @@ hr.flaired-edges:before {
     max-height: 380px;
     overflow-y: auto;
 }
+
+.btn-rounded {
+    border-radius: 10rem !important;
+}

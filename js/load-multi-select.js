@@ -18,27 +18,30 @@ function loadMultiSelect(filter, filterList) {
     modal.setAttribute('aria-labelledby', filter.toLowerCase() + '-modal-title');
     modal.setAttribute('aria-hidden', 'true');
 
-    modalDialog.classList.add('modal-dialog', 'modal-dialog-scrollable');
+    modalDialog.classList.add('modal-dialog', 'modal-lg', 'modal-dialog-scrollable');
     modalContent.classList.add('modal-content');
     modalHeader.classList.add('modal-header');
     modalTitle.id = filter.toLowerCase() + '-modal-title';
     modalTitle.classList.add('modal-title');
     modalTitle.innerText = 'Choose ' + filter + '(s)';
     modalFooter.classList.add('modal-footer');
-    modalBody.classList.add('modal-body');
+    modalBody.classList.add('modal-body', 'text-center');
 
     filterList.map((e, i) => {
         let formCheck = document.createElement('div');
         let formCheckInput = document.createElement('input');
         let formCheckLabel = document.createElement('label');
 
-        formCheck.classList.add('form-check', 'form-check-inline', 'p-2');
+        formCheck.classList.add('form-check', 'form-check-inline', 'py-1');
 
         formCheckInput.id = filter.toLowerCase() + '-checkbox-' + i;
-        formCheckInput.classList.add('form-check-input');
+        // formCheckInput.classList.add('form-check-input');
+        formCheckInput.classList.add('btn-check');
         formCheckInput.setAttribute('type', 'checkbox');
+        formCheckInput.setAttribute('autocomplete', 'off');
 
-        formCheckLabel.classList.add('form-check-label');
+        // formCheckLabel.classList.add('form-check-label');
+        formCheckLabel.classList.add('btn', 'btn-outline-light', 'btn-rounded');
         formCheckLabel.setAttribute('for', filter.toLowerCase() + '-checkbox-' + i);
         formCheckLabel.innerText = e;
 
@@ -61,7 +64,7 @@ function loadMultiSelect(filter, filterList) {
     saveButton.id = filter.toLowerCase() + '-save-selected';
     saveButton.setAttribute('type', 'button');
     saveButton.setAttribute('data-mdb-dismiss', 'modal');
-    saveButton.innerText = 'Save';
+    saveButton.innerText = 'Search';
 
     modalHeader.appendChild(modalTitle);
     modalHeader.appendChild(exitButton);
