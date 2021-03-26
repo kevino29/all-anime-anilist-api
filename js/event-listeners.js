@@ -32,10 +32,11 @@ async function loadEventListeners() {
         document.querySelector('#genre-list').children[i]
             .addEventListener('click', genreEventHandler);
 
-        function genreEventHandler(e) {
-            if (e.target.nodeName === 'HR') return;
-
-            if (e.target.innerText !== 'All') {
+        async function genreEventHandler(e) {
+            if (e.target.nodeName === 'HR' ||
+                e.target.innerText === 'Select Multiple') 
+                return;
+            else if (e.target.innerText !== 'All') {
                 genres = [];
                 genres.push(e.target.innerText.toUpperCase());
             }
@@ -53,9 +54,10 @@ async function loadEventListeners() {
             .addEventListener('click', tagEventHandler);
 
         function tagEventHandler(e) {
-            if (e.target.nodeName === 'HR') return;
-
-            if (e.target.innerText !== 'None') {
+            if (e.target.nodeName === 'HR' ||
+                e.target.innerText === 'Select Multiple')
+                return;
+            else if (e.target.innerText !== 'None') {
                 tags = [];
                 tags.push(e.target.innerText.toUpperCase());
             }

@@ -46,10 +46,34 @@ async function loadAllFilterDropdowns() {
                 // Set the text of the button
                 firstListItemBtn.innerText = filter.default;
 
-                // Append the button to the list item
-                // Then append the list item to the list
+                // Add the button to the list item
+                // Then add the list item to the list
                 firstListItem.appendChild(firstListItemBtn);
                 dropdownList.appendChild(firstListItem);
+
+                // Create a multi-select button for 'Genre' and 'Tag' dropdowns
+                if (filter.title === 'Genre' || filter.title === 'Tag') {
+                    // Create a list item and a button inside the list item
+                    let secondListItem = document.createElement('li');
+                    let secondListItemBtn = document.createElement('button');
+                    secondListItemBtn.classList.add('dropdown-item');
+
+                    // Set the attributes of the button
+                    secondListItemBtn.setAttribute('type', 'button');
+                    secondListItemBtn.setAttribute('data-mdb-toggle', 'modal');
+                    secondListItemBtn.setAttribute('data-mdb-target', '#' + filter.title.toLowerCase() + '-modal');
+
+                    // Set the text of the button
+                    secondListItemBtn.innerText = 'Select Multiple';
+
+                    // Add the button to the list item
+                    // Then add the list item to the list
+                    secondListItem.appendChild(secondListItemBtn);
+                    dropdownList.appendChild(secondListItemBtn);
+
+                    // Load the multi-select modal
+                    loadMultiSelect(filter.title, filter.list);
+                }
 
                 newListItem = document.createElement('li');
                 let newListItemSeparator = document.createElement('hr');
@@ -58,23 +82,13 @@ async function loadAllFilterDropdowns() {
                 dropdownList.appendChild(newListItem);
             }
 
-            if (text === 'OVA' || text === 'ONA' || text === 'Mahou Shoujo') {
-                // Add tooltip for the buttons
-                newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
-                newListItemBtn.setAttribute('data-mdb-placement', 'right');
-
-                switch(text) {
-                    case 'OVA':
-                        newListItemBtn.setAttribute('title', 'Original Video Animation');
-                        break;
-                    case 'ONA':
-                        newListItemBtn.setAttribute('title', 'Original Net Animation');
-                        break;
-                    case 'Mahou Shoujo':
-                        newListItemBtn.setAttribute('title', 'Magical Girls');
-                        break;
+            tooltips.map(tooltip => {
+                if (tooltip.forLabel === text) {
+                    newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
+                    newListItemBtn.setAttribute('data-mdb-placement', 'right');
+                    newListItemBtn.setAttribute('title', tooltip.tooltip);
                 }
-            }
+            });
 
             // Set the text of the button
             newListItemBtn.innerText = text;
@@ -93,6 +107,7 @@ async function loadAllFilterDropdowns() {
         display.id = 'selected' + filter.title;
         display.classList.add('h5', 'text-center', 'text-muted', 'mt-2');
 
+        // Custom display for the Sort By filter
         if (filter.title !== 'Sort By') {
             // For Format and Genre
             display.innerText = filter.default;
