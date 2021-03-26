@@ -15,7 +15,7 @@ async function loadEventListeners() {
             .addEventListener('click', formatEventHandler);
 
         function formatEventHandler(e) {
-            if (e.target.nodeName === 'HR') return;
+            if (e.target.nodeName === 'HR' || e.target.nodeName === 'H6') return;
 
             if (e.target.innerText !== 'All')
                 format = e.target.innerText.toUpperCase().replace(' ', '_');
@@ -34,6 +34,7 @@ async function loadEventListeners() {
 
         async function genreEventHandler(e) {
             if (e.target.nodeName === 'HR' ||
+                e.target.nodeName === 'H6' ||
                 e.target.innerText === 'See all genres') 
                 return;
             else if (e.target.innerText !== 'None') {
@@ -55,6 +56,7 @@ async function loadEventListeners() {
 
         function tagEventHandler(e) {
             if (e.target.nodeName === 'HR' ||
+                e.target.nodeName === 'H6' ||
                 e.target.innerText === 'See all tags')
                 return;
             else if (e.target.innerText !== 'None') {
@@ -75,7 +77,7 @@ async function loadEventListeners() {
             .addEventListener('click', sortEventHandler);
 
         function sortEventHandler(e) {
-            if (e.target.nodeName === 'HR') return;
+            if (e.target.nodeName === 'HR' || e.target.nodeName === 'H6') return;
 
             let toggleButton = document.querySelector('#reverseSortToggle');
             toggleButton.classList.remove('disabled');

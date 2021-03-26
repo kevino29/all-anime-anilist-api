@@ -75,11 +75,24 @@ async function loadAllFilterDropdowns() {
                     loadMultiSelect(filter.title, filter.list);
                 }
 
-                newListItem = document.createElement('li');
+                // Add the dropdown divider
+                let newListItemForSeparator = document.createElement('li');
                 let newListItemSeparator = document.createElement('hr');
                 newListItemSeparator.classList.add('dropdown-divider');
-                newListItem.appendChild(newListItemSeparator);
-                dropdownList.appendChild(newListItem);
+                newListItemForSeparator.appendChild(newListItemSeparator);
+                dropdownList.appendChild(newListItemForSeparator);
+
+                // Add the dropdown header
+                let newListItemForHeader = document.createElement('li');
+                let newListItemHeader = document.createElement('h6');
+                newListItemHeader.classList.add('dropdown-header');
+                newListItemHeader.innerText = 'Select a ' + filter.title.toLowerCase();
+
+                if (filter.title.toUpperCase() === 'SORT BY')
+                    newListItemHeader.innerText = 'Select a sort';
+
+                newListItemForHeader.appendChild(newListItemHeader);
+                dropdownList.appendChild(newListItemForHeader);
             }
 
             tooltips.map(tooltip => {
