@@ -135,9 +135,6 @@ async function loadEventListeners() {
                 .forEach(e => e.classList.remove('active'));
 
             // Figure out which button was clicked
-            // NEED TO FIX THIS!! CHANGE TO IF ELSE STATEMENT
-            console.log(e.target);
-
             if (e.target.parentNode.id === 'page-item-first' || 
                 e.target.parentNode.parentNode.id === 'page-item-first') {
                 console.log('First pressed!');
@@ -164,24 +161,6 @@ async function loadEventListeners() {
                 try { currentPage = parseInt(e.target.innerText) }
                 catch(error) { console.log(error) }
             }
-
-            // switch (e.target.parentNode.id) {
-            //     case 'page-item-prev':
-            //         console.log('Previous pressed!');
-            //         if (currentPage !== 1)
-            //             currentPage -= 1;
-            //         break;
-            //     case 'page-item-next':
-            //         console.log('Next pressed!');
-            //         if (currentPage !== 1576)
-            //             currentPage += 1;
-            //         break;
-            //     default:
-            //         // 'Numbered' button was clicked
-            //         try { currentPage = parseInt(e.target.innerText) }
-            //         catch(error) { console.log(error) }
-            //         break;
-            // }
             console.log(currentPage);
             requestAPI(false);
         }

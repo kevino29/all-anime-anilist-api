@@ -15,9 +15,10 @@ function loadContent() {
     pageList.children.forEach(e => e.classList.remove('d-none'));
 
     // Add display none style to each list item that is not used
+    let deprecatedLinks = 0;
     if (lastPage < pageListLength) {
         let iters = -1;
-        for (let i = pageListLength - lastPage; i > 0; i--, iters++) {
+        for (let i = pageListLength - lastPage; i > 0; i--, iters++, deprecatedLinks++) {
             pageList.children[pageListLength - iters].classList.add('d-none');
         }
     }
@@ -28,7 +29,7 @@ function loadContent() {
     let prevButton = document.querySelector('#page-item-prev');
 
     if (lastPage === 1) {
-        // Disable both the next and prev buttons
+        // Disable all the helper pagination buttons
         disableAll();
 
         // Set the inner text of each page links
@@ -38,12 +39,12 @@ function loadContent() {
     }
     else if (lastPage === 2) {
         if (currentPage === 1) {
-            // Disable prev button, enable next button
+            // Disable the left helper page buttons, enable the right helper page buttons
             disableLeft();
             enableRight();
         }
         else {
-            // Disable next button, enable the prev button (if disabled)
+            // Disable the right helper page buttons, enable the left helper page buttons (if disabled)
             disableRight();
             enableLeft();
         }
@@ -55,11 +56,12 @@ function loadContent() {
     }
     else if (currentPage === 1 || currentPage === 2) {
         if (currentPage === 1) {
-            // Disable the prev button, enable the next button (if disabled)
+            // Disable the left helper page buttons, enable the right helper page buttons (if disabled)
             disableLeft();
             enableRight();
         }
         else
+            // Enable all the helper pagination buttons
             enableAll();
 
         // Set the inner text of each page links
@@ -69,23 +71,22 @@ function loadContent() {
     }
     else if (currentPage === lastPage || currentPage === lastPage - 1) {
         if (currentPage === lastPage) {
-            // Disable the next button, enable the prev button (if disabled)
+            // Disable the right helper page buttons, enable the left helper page buttons (if disabled)
             disableRight();
             enableLeft();
         } 
-        else {
-            // Enable both next and prev buttons, if the current page is the second last page
+        else
+            // Enable all the helper pagination buttons
             enableAll();
-        }
 
         // Set the inner text of each page links
         let iters = 0;
-        for (let i = pageList.childElementCount - 3; i > 1; i--, iters++) {
+        for (let i = pageList.childElementCount - 3 - deprecatedLinks; i > 1; i--, iters++) {
             document.querySelector('#page-link-' + i).innerText = lastPage - iters;
         }
     }
     else {
-        // Enable both next and prev buttons
+        // Enable all the helper pagination buttons
         enableAll();
 
         // Set the inner text of each page links
@@ -104,9 +105,6 @@ function loadContent() {
             else
                 e.classList.remove('active');
         });
-
-    // Show the pagination
-    showPagination();
 
     function enableAll() {
         firstButton.classList.remove('disabled');
@@ -136,6 +134,9 @@ function loadContent() {
         firstButton.classList.add('disabled');
         prevButton.classList.add('disabled');
     }
+
+    // Show the pagination
+    showPagination();
 }
 
 function clearContent() {
