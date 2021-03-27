@@ -197,6 +197,14 @@ function handleData(json) {
     let newRow = document.createElement('div');
     newRow.classList.add('row', 'justify-content-center', 'pb-5', 'mx-auto');
 
+    // If there are no result, add a message
+    if (json.data.Page.media.length === 0) {
+        let resultsMessage = document.createElement('div');
+        resultsMessage.classList.add('h4', 'mt-3', 'text-center', 'text-muted');
+        resultsMessage.innerText = 'No result found';
+        newRow.appendChild(resultsMessage);
+    }
+
     // Add each queried media as a card
     json.data.Page.media
         .map(addNewMedia);
