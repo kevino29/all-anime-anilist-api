@@ -9,7 +9,7 @@ async function loadResultsContainer() {
 function loadContent() {
     // Load the pagination dynamically, also add the functionality
     let pageList = document.querySelector('#pageList');
-    let pageListLength = pageList.children.length - 2;
+    let pageListLength = pageList.children.length - 4;
 
     // Remove all display none styles to each list item
     pageList.children.forEach(e => e.classList.remove('d-none'));
@@ -30,8 +30,8 @@ function loadContent() {
         prevButton.classList.add('disabled');
 
         // Set the inner text of each page links
-        for (let i = 1; i < pageList.children.length - 1; i++) {
-            document.querySelector('#page-link-' + i).innerText = i;
+        for (let i = 2; i < pageList.children.length - 2; i++) {
+            document.querySelector('#page-link-' + i).innerText = i-1;
         }
     }
     else if (lastPage === 2) {
@@ -47,8 +47,8 @@ function loadContent() {
         }
 
         // Set the inner text of each page links
-        for (let i = 1; i < pageList.children.length - 1; i++) {
-            document.querySelector('#page-link-' + i).innerText = i;
+        for (let i = 2; i < pageList.children.length - 2; i++) {
+            document.querySelector('#page-link-' + i).innerText = i-1;
         }
     }
     else if (currentPage === 1 || currentPage === 2) {
@@ -64,8 +64,8 @@ function loadContent() {
         }
 
         // Set the inner text of each page links
-        for (let i = 1; i < pageList.children.length - 1; i++) {
-            document.querySelector('#page-link-' + i).innerText = i;
+        for (let i = 2; i < pageList.children.length - 2; i++) {
+            document.querySelector('#page-link-' + i).innerText = i-1;
         }
     }
     else if (currentPage === lastPage || currentPage === lastPage - 1) {
@@ -93,7 +93,7 @@ function loadContent() {
 
         // Set the inner text of each page links
         let iters = -2;
-        for (let i = 1; i < pageList.childElementCount - 1; i++, iters++) {
+        for (let i = 2; i < pageList.childElementCount - 2; i++, iters++) {
             document.querySelector('#page-link-' + i).innerText = currentPage + iters;
         }
     }
@@ -176,7 +176,6 @@ async function requestAPI(reset) {
         .catch(handleError);
 
     loadContent();
-    // console.log(queriedResult);
 }
 
 function handleResponse(response) {
@@ -226,9 +225,9 @@ function handleData(json) {
         let newLink = document.createElement('a');
 
         // Pick the title that isn't null, check english first
-        if (media.title.english !== null)
+        if (media.title.english !== null && media.title.english !== undefined)
             newLink.innerText = media.title.english;
-        else if (media.title.romaji !== null)
+        else if (media.title.romaji !== null && media.title.romaji !== undefined)
             newLink.innerText = media.title.romaji;
         else
             newLink.innerText = media.title.native;

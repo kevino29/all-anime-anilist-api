@@ -135,13 +135,15 @@ async function loadEventListeners() {
                 .forEach(e => e.classList.remove('active'));
 
             // Figure out which button was clicked
-            switch (e.target.innerText.toUpperCase()) {
-                case 'PREVIOUS':
+            // NEED TO FIX THIS!! CHANGE TO IF ELSE STATEMENT
+            console.log(e.target);
+            switch (e.target.parentNode.id) {
+                case 'page-item-prev':
                     console.log('Previous pressed!');
                     if (currentPage !== 1)
                         currentPage -= 1;
                     break;
-                case 'NEXT':
+                case 'page-item-next':
                     console.log('Next pressed!');
                     if (currentPage !== 1576)
                         currentPage += 1;
@@ -152,6 +154,7 @@ async function loadEventListeners() {
                     catch(error) { console.log(error) }
                     break;
             }
+            console.log(currentPage);
             requestAPI(false);
         }
     }
