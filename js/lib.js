@@ -16,18 +16,20 @@ function loadContent() {
 
     // Add display none style to each list item that is not used
     if (lastPage < pageListLength) {
-        let iters = 0;
+        let iters = -1;
         for (let i = pageListLength - lastPage; i > 0; i--, iters++) {
             pageList.children[pageListLength - iters].classList.add('d-none');
         }
     }
 
-    let prevButton = document.querySelector('#page-item-prev');
+    let firstButton = document.querySelector('#page-item-first');
+    let lastButton = document.querySelector('#page-item-last');
     let nextButton = document.querySelector('#page-item-next');
+    let prevButton = document.querySelector('#page-item-prev');
+
     if (lastPage === 1) {
         // Disable both the next and prev buttons
-        nextButton.classList.add('disabled');
-        prevButton.classList.add('disabled');
+        disableAll();
 
         // Set the inner text of each page links
         for (let i = 2; i < pageList.children.length - 2; i++) {
@@ -36,14 +38,14 @@ function loadContent() {
     }
     else if (lastPage === 2) {
         if (currentPage === 1) {
-            // Disable both the next and prev buttons
-            nextButton.classList.remove('disabled');
-            prevButton.classList.add('disabled');
+            // Disable prev button, enable next button
+            disableLeft();
+            enableRight();
         }
         else {
             // Disable next button, enable the prev button (if disabled)
-            nextButton.classList.add('disabled');
-            prevButton.classList.remove('disabled');
+            disableRight();
+            enableLeft();
         }
 
         // Set the inner text of each page links
@@ -54,14 +56,11 @@ function loadContent() {
     else if (currentPage === 1 || currentPage === 2) {
         if (currentPage === 1) {
             // Disable the prev button, enable the next button (if disabled)
-            prevButton.classList.add('disabled');
-            nextButton.classList.remove('disabled');
+            disableLeft();
+            enableRight();
         }
-        else {
-            // Enable both next and prev buttons, if the current page is 2
-            prevButton.classList.remove('disabled');
-            nextButton.classList.remove('disabled');
-        }
+        else
+            enableAll();
 
         // Set the inner text of each page links
         for (let i = 2; i < pageList.children.length - 2; i++) {
@@ -71,25 +70,23 @@ function loadContent() {
     else if (currentPage === lastPage || currentPage === lastPage - 1) {
         if (currentPage === lastPage) {
             // Disable the next button, enable the prev button (if disabled)
-            prevButton.classList.remove('disabled');
-            nextButton.classList.add('disabled');
+            disableRight();
+            enableLeft();
         } 
         else {
             // Enable both next and prev buttons, if the current page is the second last page
-            prevButton.classList.remove('disabled');
-            nextButton.classList.remove('disabled');
+            enableAll();
         }
 
         // Set the inner text of each page links
         let iters = 0;
-        for (let i = pageList.childElementCount - 2; i > 0; i--, iters++) {
+        for (let i = pageList.childElementCount - 3; i > 1; i--, iters++) {
             document.querySelector('#page-link-' + i).innerText = lastPage - iters;
         }
     }
     else {
         // Enable both next and prev buttons
-        prevButton.classList.remove('disabled');
-        nextButton.classList.remove('disabled');
+        enableAll();
 
         // Set the inner text of each page links
         let iters = -2;
@@ -110,6 +107,35 @@ function loadContent() {
 
     // Show the pagination
     showPagination();
+
+    function enableAll() {
+        firstButton.classList.remove('disabled');
+        lastButton.classList.remove('disabled');
+        nextButton.classList.remove('disabled');
+        prevButton.classList.remove('disabled');
+    }
+    function disableAll() {
+        firstButton.classList.add('disabled');
+        lastButton.classList.add('disabled');
+        nextButton.classList.add('disabled');
+        prevButton.classList.add('disabled');
+    }
+    function enableRight() {
+        lastButton.classList.remove('disabled');
+        nextButton.classList.remove('disabled');
+    }
+    function disableRight() {
+        lastButton.classList.add('disabled');
+        nextButton.classList.add('disabled');
+    }
+    function enableLeft() {
+        firstButton.classList.remove('disabled');
+        prevButton.classList.remove('disabled');
+    }
+    function disableLeft() {
+        firstButton.classList.add('disabled');
+        prevButton.classList.add('disabled');
+    }
 }
 
 function clearContent() {

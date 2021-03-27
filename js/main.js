@@ -18,9 +18,9 @@ window.addEventListener('load', async function() {
     // Load the results container
     results = await loadResultsContainer();
 
-    // Load all the event listeners
-    await loadEventListeners();
-
     // Initial call to load the first medias
     await requestAPI(true);
+
+    // Load all the event listeners
+    await loadEventListeners();
 });

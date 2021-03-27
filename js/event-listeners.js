@@ -137,23 +137,51 @@ async function loadEventListeners() {
             // Figure out which button was clicked
             // NEED TO FIX THIS!! CHANGE TO IF ELSE STATEMENT
             console.log(e.target);
-            switch (e.target.parentNode.id) {
-                case 'page-item-prev':
-                    console.log('Previous pressed!');
-                    if (currentPage !== 1)
-                        currentPage -= 1;
-                    break;
-                case 'page-item-next':
-                    console.log('Next pressed!');
-                    if (currentPage !== 1576)
-                        currentPage += 1;
-                    break;
-                default:
-                    // 'Numbered' button was clicked
-                    try { currentPage = parseInt(e.target.innerText) }
-                    catch(error) { console.log(error) }
-                    break;
+
+            if (e.target.parentNode.id === 'page-item-first' || 
+                e.target.parentNode.parentNode.id === 'page-item-first') {
+                console.log('First pressed!');
+                currentPage = 1;
             }
+            else if (e.target.parentNode.id === 'page-item-last' || 
+                e.target.parentNode.parentNode.id === 'page-item-last') {
+                console.log('Last pressed!');
+                currentPage = lastPage;
+            }
+            else if (e.target.parentNode.id === 'page-item-next' || 
+                e.target.parentNode.parentNode.id === 'page-item-next') {
+                console.log('Next pressed!');
+                if (currentPage !== lastPage)
+                    currentPage += 1;
+            }
+            else if (e.target.parentNode.id === 'page-item-prev' || 
+                e.target.parentNode.parentNode.id === 'page-item-prev') {
+                console.log('Previous pressed!');
+                if (currentPage !== 1)
+                    currentPage -= 1;
+            }
+            else {
+                try { currentPage = parseInt(e.target.innerText) }
+                catch(error) { console.log(error) }
+            }
+
+            // switch (e.target.parentNode.id) {
+            //     case 'page-item-prev':
+            //         console.log('Previous pressed!');
+            //         if (currentPage !== 1)
+            //             currentPage -= 1;
+            //         break;
+            //     case 'page-item-next':
+            //         console.log('Next pressed!');
+            //         if (currentPage !== 1576)
+            //             currentPage += 1;
+            //         break;
+            //     default:
+            //         // 'Numbered' button was clicked
+            //         try { currentPage = parseInt(e.target.innerText) }
+            //         catch(error) { console.log(error) }
+            //         break;
+            // }
             console.log(currentPage);
             requestAPI(false);
         }
