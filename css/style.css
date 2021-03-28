@@ -505,3 +505,11 @@ hr.flaired-edges:before {
 .btn-rounded {
     border-radius: 10rem !important;
 }
+
+.form-outline .form-control~.form-label {
+    color: rgba(19, 0, 0, 0.7) !important;
+}
+
+.form-check {
+    padding-left: 0 !important;
+}
