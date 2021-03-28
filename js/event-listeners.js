@@ -161,7 +161,6 @@ async function loadEventListeners() {
                 try { currentPage = parseInt(e.target.innerText) }
                 catch(error) { console.log(error) }
             }
-            console.log(currentPage);
             requestAPI(false);
         }
     }
