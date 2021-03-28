@@ -28,88 +28,88 @@ async function loadAllFilterDropdowns() {
         // Add the button to the dropdown
         dropdown.appendChild(dropdownButton);
 
-        // Get the button text constants and fill the list
-        filter.list.map((text, i) => {
-            // Create a list item and a button for the list item
-            let newListItem = document.createElement('li');
-            let newListItemBtn = document.createElement('button');
-            newListItemBtn.classList.add('dropdown-item');
+        // Add the default at the top of the list
+        // Add a divider as well
+        // Create a list item and a button for the list item
+        let firstListItem = document.createElement('li');
+        let firstListItemBtn = document.createElement('button');
+        firstListItemBtn.classList.add('dropdown-item');
 
-            // Add the default at the top of the list
-            // Add a divider as well
-            if (i === 0) {
-                // Create a list item and a button for the list item
-                let firstListItem = document.createElement('li');
-                let firstListItemBtn = document.createElement('button');
-                firstListItemBtn.classList.add('dropdown-item');
+        // Set the text of the button
+        firstListItemBtn.innerText = filter.default;
 
-                // Set the text of the button
-                firstListItemBtn.innerText = filter.default;
+        // Add the button to the list item
+        // Then add the list item to the list
+        firstListItem.appendChild(firstListItemBtn);
+        dropdownList.appendChild(firstListItem);
 
-                // Add the button to the list item
-                // Then add the list item to the list
-                firstListItem.appendChild(firstListItemBtn);
-                dropdownList.appendChild(firstListItem);
+        // Create a multi-select button for 'Genre' and 'Tag' dropdowns
+        if (filter.title === 'Genre' || filter.title === 'Tag') {
+            // Create a list item and a button inside the list item
+            let secondListItem = document.createElement('li');
+            let secondListItemBtn = document.createElement('button');
+            secondListItemBtn.classList.add('dropdown-item');
 
-                // Create a multi-select button for 'Genre' and 'Tag' dropdowns
-                if (filter.title === 'Genre' || filter.title === 'Tag') {
-                    // Create a list item and a button inside the list item
-                    let secondListItem = document.createElement('li');
-                    let secondListItemBtn = document.createElement('button');
-                    secondListItemBtn.classList.add('dropdown-item');
-
-                    // Set the attributes of the button
-                    secondListItemBtn.setAttribute('type', 'button');
-                    secondListItemBtn.setAttribute('data-mdb-toggle', 'modal');
-                    secondListItemBtn.setAttribute('data-mdb-target', '#' + filter.title.toLowerCase() + '-modal');
-
-                    // Set the text of the button
-                    secondListItemBtn.innerText = 'See all ' + filter.title.toLowerCase() + 's';
-
-                    // Add the button to the list item
-                    // Then add the list item to the list
-                    secondListItem.appendChild(secondListItemBtn);
-                    dropdownList.appendChild(secondListItemBtn);
-
-                    // Load the multi-select modal
-                    loadMultiSelect(filter.title, filter.list);
-                }
-
-                // Add the dropdown divider
-                let newListItemForSeparator = document.createElement('li');
-                let newListItemSeparator = document.createElement('hr');
-                newListItemSeparator.classList.add('dropdown-divider');
-                newListItemForSeparator.appendChild(newListItemSeparator);
-                dropdownList.appendChild(newListItemForSeparator);
-
-                // Add the dropdown header
-                let newListItemForHeader = document.createElement('li');
-                let newListItemHeader = document.createElement('h6');
-                newListItemHeader.classList.add('dropdown-header');
-                newListItemHeader.innerText = 'Select a ' + filter.title.toLowerCase();
-
-                if (filter.title.toUpperCase() === 'SORT BY')
-                    newListItemHeader.innerText = 'Select a sort';
-
-                newListItemForHeader.appendChild(newListItemHeader);
-                dropdownList.appendChild(newListItemForHeader);
-            }
-
-            tooltips.map(tooltip => {
-                if (tooltip.forLabel === text) {
-                    newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
-                    newListItemBtn.setAttribute('data-mdb-placement', 'right');
-                    newListItemBtn.setAttribute('title', tooltip.tooltip);
-                }
-            });
+            // Set the attributes of the button
+            secondListItemBtn.setAttribute('type', 'button');
+            secondListItemBtn.setAttribute('data-mdb-toggle', 'modal');
+            secondListItemBtn.setAttribute('data-mdb-target', '#' + filter.title.toLowerCase() + '-modal');
 
             // Set the text of the button
-            newListItemBtn.innerText = text;
+            secondListItemBtn.innerText = 'See all ' + filter.title.toLowerCase() + 's';
 
-            // Append the button to the list item
-            // Then append the list item to the list
-            newListItem.appendChild(newListItemBtn);
-            dropdownList.appendChild(newListItem);
+            // Add the button to the list item
+            // Then add the list item to the list
+            secondListItem.appendChild(secondListItemBtn);
+            dropdownList.appendChild(secondListItemBtn);
+
+            // Load the multi-select modal
+            loadMultiSelect(filter.title, filter.collection);
+        }
+
+        // Add the dropdown divider
+        let newListItemForSeparator = document.createElement('li');
+        let newListItemSeparator = document.createElement('hr');
+        newListItemSeparator.classList.add('dropdown-divider');
+        newListItemForSeparator.appendChild(newListItemSeparator);
+        dropdownList.appendChild(newListItemForSeparator);
+
+        // Add the dropdown header
+        let newListItemForHeader = document.createElement('li');
+        let newListItemHeader = document.createElement('h6');
+        newListItemHeader.classList.add('dropdown-header');
+        newListItemHeader.innerText = 'Select a ' + filter.title.toLowerCase();
+
+        if (filter.title.toUpperCase() === 'SORT BY')
+            newListItemHeader.innerText = 'Select a sort';
+
+        newListItemForHeader.appendChild(newListItemHeader);
+        dropdownList.appendChild(newListItemForHeader);
+
+        // Get the button text constants and fill the list
+        filter.collection.map(obj => {
+            obj.list.map(text => {
+                // Create a list item and a button for the list item
+                let newListItem = document.createElement('li');
+                let newListItemBtn = document.createElement('button');
+                newListItemBtn.classList.add('dropdown-item');
+
+                tooltips.map(tooltip => {
+                    if (tooltip.forLabel === text) {
+                        newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
+                        newListItemBtn.setAttribute('data-mdb-placement', 'right');
+                        newListItemBtn.setAttribute('title', tooltip.tooltip);
+                    }
+                });
+
+                // Set the text of the button
+                newListItemBtn.innerText = text;
+
+                // Append the button to the list item
+                // Then append the list item to the list
+                newListItem.appendChild(newListItemBtn);
+                dropdownList.appendChild(newListItem);
+            })
         });
 
         // Add the list to the dropdown
