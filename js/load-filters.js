@@ -6,8 +6,10 @@ async function loadFilters() {
 
 async function loadAllFilterDropdowns() {
     buttonTexts.map(filter => {
-        // Create the dropdown
+        // Declare the element
         let dropdown = document.createElement('div');
+
+        // Set up the dropdown
         dropdown.classList.add('dropdown', 'd-inline-block', 'text-center', 'me-2');
 
         // Create the button for the dropdown
@@ -80,9 +82,11 @@ async function loadAllFilterDropdowns() {
         newListItemHeader.classList.add('dropdown-header');
         newListItemHeader.innerText = 'Select a ' + filter.title.toLowerCase();
 
+        // Custom dropdown header for SORT dropdown
         if (filter.title.toUpperCase() === 'SORT BY')
             newListItemHeader.innerText = 'Select a sort';
 
+        // Put all the elements together
         newListItemForHeader.appendChild(newListItemHeader);
         dropdownList.appendChild(newListItemForHeader);
 
@@ -94,6 +98,7 @@ async function loadAllFilterDropdowns() {
                 let newListItemBtn = document.createElement('button');
                 newListItemBtn.classList.add('dropdown-item');
 
+                // Loop through the tooltips constant to add tooltips
                 tooltips.map(tooltip => {
                     if (tooltip.forLabel === text) {
                         newListItemBtn.setAttribute('data-mdb-toggle', 'tooltip');
@@ -160,15 +165,21 @@ async function loadAllFilterDropdowns() {
 }
 
 async function loadAdultToggle() {
+    // Declare all the elements
     let adultToggle = document.createElement('div');
+    let toggleInput = document.createElement('input');
+    let toggleLabel = document.createElement('label');
+    let padding = document.createElement('div');
+
+    // Set up the wrapper for the toggle
     adultToggle.classList.add('form-check', 'form-switch', 'd-inline-block', 'float-sm-end', 'mt-1');
 
-    let toggleInput = document.createElement('input');
+    // Set up the toggle input
     toggleInput.id = 'adultToggle';
     toggleInput.classList.add('form-check-input');
     toggleInput.setAttribute('type', 'checkbox');
 
-    let toggleLabel = document.createElement('label');
+    // Set up the toggle label
     toggleLabel.classList.add('form-check-label', 'h5');
     toggleLabel.setAttribute('for', 'adultToggle');
     toggleLabel.setAttribute('data-mdb-toggle', 'tooltip');
@@ -177,13 +188,15 @@ async function loadAdultToggle() {
     toggleLabel.setAttribute('title', 'Only show adult media. \nNote: You need to be authorized in AniList to view adult medias.');
     toggleLabel.innerText = '18+';
 
-    let padding = document.createElement('div');
+    // Set up the padding
     padding.classList.add('h5', 'text-center', 'mt-2');
     padding.innerHTML = '&nbsp;';
 
+    // Put all the elements together
     adultToggle.appendChild(toggleInput);
     adultToggle.appendChild(toggleLabel);
     adultToggle.appendChild(padding);
 
+    // Return the toggle wrapper
     return adultToggle;
 }
