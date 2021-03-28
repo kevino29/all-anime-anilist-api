@@ -62,7 +62,7 @@ function loadMultiSelect(filter, filterList) {
     cancelButton.classList.add('btn', 'btn-secondary');
     cancelButton.setAttribute('type', 'button');
     cancelButton.setAttribute('data-mdb-dismiss', 'modal');
-    cancelButton.innerText = 'Cancel'
+    cancelButton.innerText = 'Cancel';
 
     saveButton.classList.add('btn', 'btn-primary');
     saveButton.id = filter.toLowerCase() + '-save-selected';

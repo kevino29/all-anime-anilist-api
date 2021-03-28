@@ -8,7 +8,7 @@ async function loadAllFilterDropdowns() {
     buttonTexts.map(filter => {
         // Create the dropdown
         let dropdown = document.createElement('div');
-        dropdown.classList.add('dropdown', 'd-inline-block', 'text-center', 'mr-2');
+        dropdown.classList.add('dropdown', 'd-inline-block', 'text-center', 'me-2');
 
         // Create the button for the dropdown
         let dropdownButton = document.createElement('button');
@@ -130,7 +130,7 @@ async function loadAllFilterDropdowns() {
             // Create the display text
             let selectedSortText = document.createElement('span');
             selectedSortText.id = 'selectedSortText';
-            selectedSortText.classList.add('mr-1');
+            selectedSortText.classList.add('me-1');
             selectedSortText.innerText = filter.default;
 
             // Create the toggle button
@@ -161,7 +161,7 @@ async function loadAllFilterDropdowns() {
 
 async function loadAdultToggle() {
     let adultToggle = document.createElement('div');
-    adultToggle.classList.add('form-check', 'form-switch', 'd-inline-block', 'float-right', 'mt-1');
+    adultToggle.classList.add('form-check', 'form-switch', 'd-inline-block', 'float-sm-end', 'mt-1');
 
     let toggleInput = document.createElement('input');
     toggleInput.id = 'adultToggle';
@@ -169,7 +169,7 @@ async function loadAdultToggle() {
     toggleInput.setAttribute('type', 'checkbox');
 
     let toggleLabel = document.createElement('label');
-    toggleLabel.classList.add('form-check-label', 'ml-3', 'h5');
+    toggleLabel.classList.add('form-check-label', 'h5');
     toggleLabel.setAttribute('for', 'adultToggle');
     toggleLabel.setAttribute('data-mdb-toggle', 'tooltip');
     toggleLabel.setAttribute('data-mdb-placement', 'bottom');
