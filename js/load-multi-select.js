@@ -12,32 +12,35 @@ function loadMultiSelect(filter, collection) {
     let saveButton = document.createElement('button');
 
     // Set up the modal
-    modal.id = filter.toLowerCase() + '-modal';
+    modal.id = filter.title.toLowerCase() + '-modal';
     modal.classList.add('modal', 'fade');
     modal.setAttribute('data-mdb-backdrop', 'static');
     modal.setAttribute('data-mdb-keyboard', 'false');
     modal.setAttribute('tabindex', '-1');
-    modal.setAttribute('aria-labelledby', filter.toLowerCase() + '-modal-title');
+    modal.setAttribute('aria-labelledby', filter.title.toLowerCase() + '-modal-title');
     modal.setAttribute('aria-hidden', 'true');
 
     // Set up the modal dialog
     modalDialog.classList.add('modal-dialog', 'modal-dialog-centered');
     modalContent.classList.add('modal-content');
     modalHeader.classList.add('modal-header');
-    modalTitle.id = filter.toLowerCase() + '-modal-title';
+    modalTitle.id = filter.title.toLowerCase() + '-modal-title';
     modalTitle.classList.add('modal-title');
-    modalTitle.innerText = 'Choose ' + filter + '(s)';
+    modalTitle.innerText = 'Choose ' + filter.title + '(s)';
     modalFooter.classList.add('modal-footer');
     modalBody.classList.add('modal-body', 'text-center');
 
     // Make the modal bigger and scrollable if it is the Tag modal
-    if (filter.toUpperCase() === 'TAG')
+    if (filter.title.toUpperCase() === 'TAG')
         modalDialog.classList.add('modal-lg', 'modal-dialog-scrollable');
+
+    if (filter.title.toUpperCase() === 'YEAR')
+        modalDialog.classList.add('modal-dialog-scrollable');
 
     // Loop through each object in the collection object
     collection.map((obj, i) => {
         // Separate the checkboxes into categories
-        if (filter.toUpperCase() === 'TAG') {
+        if (filter['separate-categories']) {
             let newHeader = document.createElement('div');
             newHeader.classList.add('h4', 'text-center', 'text-muted', 'mt-4');
             newHeader.innerText = obj.category;
@@ -55,14 +58,14 @@ function loadMultiSelect(filter, collection) {
             formCheck.classList.add('form-check', 'form-check-inline', 'py-1');
 
             // Set up the checkbox
-            formCheckInput.id = filter.toLowerCase() + '-checkbox-' + i.toString() + '-' + j.toString();
+            formCheckInput.id = filter.title.toLowerCase() + '-checkbox-' + i.toString() + '-' + j.toString();
             formCheckInput.classList.add('btn-check');
             formCheckInput.setAttribute('type', 'checkbox');
             formCheckInput.setAttribute('autocomplete', 'off');
 
             // Set up the checkbox label
             formCheckLabel.classList.add('btn', 'btn-outline-light', 'btn-rounded');
-            formCheckLabel.setAttribute('for', filter.toLowerCase() + '-checkbox-' + i.toString() + '-' + j.toString());
+            formCheckLabel.setAttribute('for', filter.title.toLowerCase() + '-checkbox-' + i.toString() + '-' + j.toString());
             formCheckLabel.innerText = e;
 
             // Put all the elements together
@@ -88,7 +91,7 @@ function loadMultiSelect(filter, collection) {
 
     // Set up the Save button
     saveButton.classList.add('btn', 'btn-primary');
-    saveButton.id = filter.toLowerCase() + '-save-selected';
+    saveButton.id = filter.title.toLowerCase() + '-save-selected';
     saveButton.setAttribute('type', 'button');
     saveButton.setAttribute('data-mdb-dismiss', 'modal');
     saveButton.innerText = 'Search';
@@ -112,12 +115,12 @@ function loadMultiSelect(filter, collection) {
 }
 
 function loadEventListener(filter, collection) {
-    document.querySelector('#' + filter.toLowerCase() + '-save-selected')
+    document.querySelector('#' + filter.title.toLowerCase() + '-save-selected')
         .addEventListener('click', () => {
-            let display = document.querySelector('#selected' + filter);
+            let display = document.querySelector('#selected' + filter.title);
 
             // Initialize the arrays
-            switch(filter.toUpperCase()) {
+            switch(filter.title.toUpperCase()) {
                 case 'GENRE':
                     genres = [];
                     break;
@@ -133,14 +136,14 @@ function loadEventListener(filter, collection) {
             collection.map((obj, i) => {
                 obj.list.map((e, j) => {
                     // Loop through all the checkboxes
-                    let checkbox = document.querySelector('#' + filter.toLowerCase() + '-checkbox-' + i.toString() + '-' + j.toString());
+                    let checkbox = document.querySelector('#' + filter.title.toLowerCase() + '-checkbox-' + i.toString() + '-' + j.toString());
         
                     // Check if the checkbox is checked then add the
                     // checked data into the array to be queried
                     if (checkbox.checked) {
                         display.innerText = 'Custom';
 
-                        switch(filter.toUpperCase()) {
+                        switch(filter.title.toUpperCase()) {
                             case 'GENRE':
                                 genres.push(e);
                                 break;
