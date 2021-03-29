@@ -40,7 +40,7 @@ function loadMultiSelect(filter, collection) {
         if (filter.toUpperCase() === 'TAG') {
             let newHeader = document.createElement('div');
             newHeader.classList.add('h4', 'text-center', 'text-muted', 'mt-4');
-            newHeader.innerText = obj.firstLetter;
+            newHeader.innerText = obj.category;
             modalBody.appendChild(newHeader);
         }
 
