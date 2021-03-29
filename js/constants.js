@@ -4,7 +4,7 @@ const url = 'https://graphql.anilist.co';
 // Set the query for the request
 const query =
 `
-    query ($page: Int, $search: String, $format: MediaFormat, $genres: [String], 
+    query ($page: Int, $search: String, $format: MediaFormat, $status: MediaStatus, $year: Int, $genres: [String], 
         $tags: [String], $sort: [MediaSort], $isAdult: Boolean) {
         Page (page: $page) {
             pageInfo {
@@ -14,7 +14,7 @@ const query =
                 lastPage
                 hasNextPage
             }
-            media (search: $search, format: $format, genre_in: $genres, 
+            media (search: $search, format: $format, status: $status, seasonYear: $year, genre_in: $genres, 
                 tag_in: $tags, sort: $sort, isAdult: $isAdult) {
                 id
                 type
@@ -44,6 +44,7 @@ const buttonTexts =
         'title': 'Format',
         'default': 'All',
         'multi-select': false,
+        'separate-categories': false,
         'collection': [
             {
                 'category': 'T',
@@ -71,6 +72,7 @@ const buttonTexts =
         'title': 'Status',
         'default': 'All',
         'multi-select': false,
+        'separate-categories': false,
         'collection': [
             {
                 'category': 'All Status',
@@ -82,6 +84,7 @@ const buttonTexts =
         'title': 'Season',
         'default': 'All',
         'multi-select': false,
+        'separate-categories': false,
         'collection': [
             {
                 'category': 'All Seasons',
@@ -92,7 +95,8 @@ const buttonTexts =
     {
         'title': 'Year',
         'default': 'All',
-        'multi-select': true,
+        'multi-select': false,
+        'separate-categories': false,
         'collection': [
             {
                 'category': '2020s',
@@ -152,6 +156,7 @@ const buttonTexts =
         'title': 'Genre',
         'default': 'None',
         'multi-select': true,
+        'separate-categories': false,
         'collection': [
             {
                 'category': 'A',
@@ -203,6 +208,7 @@ const buttonTexts =
         'title': 'Tag',
         'default': 'None',
         'multi-select': true,
+        'separate-categories': true,
         'collection': [
             {
                 'category': '#',
@@ -329,6 +335,7 @@ const buttonTexts =
         'title': 'Sort By',
         'default': 'None',
         'multi-select': false,
+        'separate-categories': false,
         'collection': [
             {
                 'category': 'T',
