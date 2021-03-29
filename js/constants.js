@@ -4,8 +4,8 @@ const url = 'https://graphql.anilist.co';
 // Set the query for the request
 const query =
 `
-    query ($page: Int, $search: String, $format: MediaFormat, $status: MediaStatus, $year: Int, $genres: [String], 
-        $tags: [String], $sort: [MediaSort], $isAdult: Boolean) {
+    query ($page: Int, $search: String, $format: MediaFormat, $status: MediaStatus, $season: MediaSeason, 
+        $year: Int, $genres: [String], $tags: [String], $sort: [MediaSort], $isAdult: Boolean) {
         Page (page: $page) {
             pageInfo {
                 total
@@ -14,8 +14,8 @@ const query =
                 lastPage
                 hasNextPage
             }
-            media (search: $search, format: $format, status: $status, seasonYear: $year, genre_in: $genres, 
-                tag_in: $tags, sort: $sort, isAdult: $isAdult) {
+            media (search: $search, format: $format, status: $status, season: $season, seasonYear: $year, 
+                genre_in: $genres, tag_in: $tags, sort: $sort, isAdult: $isAdult) {
                 id
                 type
                 siteUrl
