@@ -45,8 +45,8 @@ async function loadAllFilterDropdowns() {
         firstListItem.appendChild(firstListItemBtn);
         dropdownList.appendChild(firstListItem);
 
-        // Create a multi-select button for 'Genre' and 'Tag' dropdowns
-        if (filter.title === 'Genre' || filter.title === 'Tag') {
+        // Create a multi-select button if applicable
+        if (filter["multi-select"]) {
             // Create a list item and a button inside the list item
             let secondListItem = document.createElement('li');
             let secondListItemBtn = document.createElement('button');
@@ -79,12 +79,12 @@ async function loadAllFilterDropdowns() {
         // Add the dropdown header
         let newListItemForHeader = document.createElement('li');
         let newListItemHeader = document.createElement('h6');
-        newListItemHeader.classList.add('dropdown-header');
-        newListItemHeader.innerText = 'Select a ' + filter.title.toLowerCase();
+        newListItemHeader.classList.add('dropdown-header', 'text-muted');
+        newListItemHeader.innerText = 'Select ' + filter.title.toLowerCase();
 
         // Custom dropdown header for SORT dropdown
         if (filter.title.toUpperCase() === 'SORT BY')
-            newListItemHeader.innerText = 'Select a sort';
+            newListItemHeader.innerText = 'Select sort';
 
         // Put all the elements together
         newListItemForHeader.appendChild(newListItemHeader);
