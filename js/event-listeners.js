@@ -18,11 +18,69 @@ async function loadEventListeners() {
             if (e.target.nodeName === 'HR' || e.target.nodeName === 'H6') return;
 
             if (e.target.innerText !== 'All')
-                format = e.target.innerText.toUpperCase().replace(' ', '_');
+                format = e.target.innerText.toUpperCase().split(' ').join('_');
             else
                 format = undefined;
             
             document.querySelector('#selectedFormat').innerText = e.target.innerText;
+            requestAPI(true);
+        }
+    }
+
+    // Add a click event listener to each status buttons
+    for (let i = 0; i < document.querySelector('#status-list').children.length; i++) {
+        document.querySelector('#status-list').children[i]
+            .addEventListener('click', statusEventHandler);
+
+        function statusEventHandler(e) {
+            if (e.target.nodeName === 'HR' || e.target.nodeName === 'H6') return;
+
+            if (e.target.innerText !== 'All')
+                status = e.target.innerText.toUpperCase().split(' ').join('_');
+            else
+                status = undefined;
+            
+            document.querySelector('#selectedStatus').innerText = e.target.innerText;
+            requestAPI(true);
+        }
+    }
+    
+    // Add a click event listener to each season buttons
+    for (let i = 0; i < document.querySelector('#season-list').children.length; i++) {
+        document.querySelector('#season-list').children[i]
+            .addEventListener('click', seasonEventHandler);
+
+        function seasonEventHandler(e) {
+            if (e.target.nodeName === 'HR' ||
+                e.target.nodeName === 'H6') 
+                return;
+            else if (e.target.innerText !== 'All') {
+                season = e.target.innerText.toUpperCase();
+            }
+            else
+                season = undefined;
+
+            document.querySelector('#selectedSeason').innerText = e.target.innerText;
+            requestAPI(true);
+        }
+    }
+
+    // Add a click event listener to each year buttons
+    for (let i = 0; i < document.querySelector('#year-list').children.length; i++) {
+        document.querySelector('#year-list').children[i]
+            .addEventListener('click', yearEventHandler);
+
+        function yearEventHandler(e) {
+            if (e.target.nodeName === 'HR' ||
+                e.target.nodeName === 'H6') 
+                return;
+            else if (e.target.innerText !== 'All') {
+                year = e.target.innerText.toUpperCase();
+            }
+            else
+                year = undefined;
+
+            document.querySelector('#selectedYear').innerText = e.target.innerText;
             requestAPI(true);
         }
     }
@@ -32,7 +90,7 @@ async function loadEventListeners() {
         document.querySelector('#genre-list').children[i]
             .addEventListener('click', genreEventHandler);
 
-        async function genreEventHandler(e) {
+        function genreEventHandler(e) {
             if (e.target.nodeName === 'HR' ||
                 e.target.nodeName === 'H6' ||
                 e.target.innerText === 'See all genres') 
