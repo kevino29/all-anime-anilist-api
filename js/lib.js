@@ -174,6 +174,9 @@ async function requestAPI(reset) {
         page: currentPage,
         search: search,
         format: format,
+        status: status,
+        season: season,
+        year: year,
         genres: genres,
         tags: tags,
         sort: sort,
@@ -281,3 +284,31 @@ function handleData(json) {
 function handleError(error) {
     console.log(error);
 }
+
+// FOR C# (Requires GraphQI.Client nuget)
+
+// var  query = @"query($id: String) { device (id: $id) { displayName, id } }";
+// var request = new GraphQLRequest(){
+//                                 Query = query,
+//                                 Variables = new {id =123}  
+//                             };
+
+// var graphQLClient = new GraphQLClient("http://localhost:8080/api/GraphQL");
+
+// graphQLClient.DefaultRequestHeaders.Add("Authorization", "yourtoken");
+
+// var graphQLResponse = await graphQLClient.PostAsync(request);
+            
+// Console.WriteLine(graphQLResponse.Data);var  query = @"query($id: String) { device (id: $id) { displayName, id } }";
+// var request = new GraphQLRequest(){
+//                                 Query = query,
+//                                 Variables = new {id =123}  
+//                             };
+
+// var graphQLClient = new GraphQLClient("http://localhost:8080/api/GraphQL");
+
+// graphQLClient.DefaultRequestHeaders.Add("Authorization", "yourtoken");
+
+// var graphQLResponse = await graphQLClient.PostAsync(request);
+            
+// Console.WriteLine(graphQLResponse.Data);
