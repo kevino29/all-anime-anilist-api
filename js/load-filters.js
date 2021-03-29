@@ -66,7 +66,7 @@ async function loadAllFilterDropdowns() {
             dropdownList.appendChild(secondListItemBtn);
 
             // Load the multi-select modal
-            loadMultiSelect(filter.title, filter.collection);
+            loadMultiSelect(filter, filter.collection);
         }
 
         // Add the dropdown divider
