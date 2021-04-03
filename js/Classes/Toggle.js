@@ -25,7 +25,7 @@ class Toggle {
         let padding = document.createElement('div');
 
         // Set up the wrapper for the toggle
-        this._toggle.classList.add('form-check', 'form-switch', 'd-inline-block', 'float-sm-end', 'mt-1');
+        this._toggle.classList.add('form-check', 'form-switch', 'd-inline-block', 'float-end', 'mt-1');
 
         // Set up the toggle input
         toggleInput.id = 'adultToggle';
