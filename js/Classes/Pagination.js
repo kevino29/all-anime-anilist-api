@@ -21,7 +21,7 @@ class Pagination {
                     <button id="page-link-0" class="page-link"><i class="fas fa-angle-double-left"></i></button>
                 </li>
                 <li id="page-item-prev" class="page-item mx-1">
-                    <button id="page-link-1" class="page-link"><i class="fas fa-chevron-left"></i></button>
+                    <button id="page-link-1" class="page-link"><i class="fas fa-angle-left"></i></button>
                 </li>
                 <li class="page-item mx-1">
                     <button id="page-link-2" class="page-link"></button>
@@ -39,7 +39,7 @@ class Pagination {
                     <button id="page-link-6" class="page-link"></button>
                 </li>
                 <li id="page-item-next" class="page-item mx-1">
-                    <button id="page-link-7" class="page-link"><i class="fas fa-chevron-right"></i></button>
+                    <button id="page-link-7" class="page-link"><i class="fas fa-angle-right"></i></button>
                 </li>
                 <li id="page-item-last" class="page-item mx-1">
                     <button id="page-link-8" class="page-link"><i class="fas fa-angle-double-right"></i></button>
