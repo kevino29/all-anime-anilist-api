@@ -8,7 +8,7 @@ class Constants {
         `
             query ($page: Int, $search: String, $format: MediaFormat, $status: MediaStatus, $season: MediaSeason, 
                 $year: Int, $genres: [String], $tags: [String], $sort: [MediaSort], $isAdult: Boolean) {
-                Page (page: $page) {
+                Page (page: $page, perPage: 48) {
                     pageInfo {
                         total
                         perPage
