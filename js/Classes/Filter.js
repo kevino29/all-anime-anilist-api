@@ -239,8 +239,13 @@ class Filter {
                                 // Set the sort toggle to default
                                 Global.reverseSort = false;
 
+                                // Still doesn't work
+                                document.querySelector('#reverseSortToggle').removeEventListener('click', handler);
+
                                 // Add an event listener to the toggle
-                                document.querySelector('#reverseSortToggle').addEventListener('click', function() {
+                                document.querySelector('#reverseSortToggle').addEventListener('click', handler);
+                                
+                                function handler() {
                                     if (document.querySelector('#selectedSortText').innerText === filter.default) 
                                         return;
                                     
@@ -251,7 +256,7 @@ class Filter {
                                         else Global.sort += '_DESC';
                                     }
                                     WebAPI.request(true);
-                                });
+                                }
                                 break;
                             default:
                                 break;
