@@ -56,6 +56,9 @@ class Toggle {
         this.setEventListener();
     }
 
+    /**
+     * Sets up the event listener for the toggle.
+     */
     setEventListener() {
         document.querySelector('#adultToggle').addEventListener('change', function() {
             Global.isAdult = this.checked;

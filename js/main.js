@@ -9,9 +9,6 @@ import Toggle from './Classes/Toggle.js';
 import WebAPI from './Classes/WebAPI.js';
 import Search from './Classes/Search.js';
 
-// ADD THIS LOADER
-// http://spin.js.org/#?lines=20&length=0&width=12&radius=71&scale=0.7&corners=1&speed=1.6&rotate=48&animation=spinner-line-shrink&direction=1&color=%23ffffff&fadeColor=transparent&top=50&left=50&shadow=0%200%201px%20transparent&zIndex=2000000000&className=spinner&position=absolute
-
 window.addEventListener('load', () => {
     // Set up the search box
     new Search().setEventListener();
