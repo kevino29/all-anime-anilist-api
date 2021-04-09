@@ -221,11 +221,10 @@ class Constants {
                     },
                     {
                         'category': 'C',
-                        'list': ['Calligraphy',
-                            'Cannibalism', 'Card Battle', 'Cars', 'Centaur', 'CGI', 'Cheerleading', 'Chibi', 'Chimera', 'Chuunibyou',
-                            'Circus', 'Classic Literature', 'College', 'Coming of Age', 'Conspiracy', 'Cosmic Horror', 'Cosplay',
-                            'Crime', 'Crossdressing', 'Crossover', 'Cult', 'Cultivation', 'Cute Girls Doing Cute Things', 'Cyberpunk',
-                            'Cycling'],
+                        'list': ['Calligraphy', 'Cannibalism', 'Card Battle', 'Cars', 'Centaur', 'CGI', 'Cheerleading', 'Chibi', 
+                            'Chimera', 'Chuunibyou', 'Circus', 'Classic Literature', 'College', 'Coming of Age', 'Conspiracy', 
+                            'Cosmic Horror', 'Cosplay', 'Crime', 'Crossdressing', 'Crossover', 'Cult', 'Cultivation', 
+                            'Cute Girls Doing Cute Things', 'Cyberpunk', 'Cycling'],
                     },
                     {
                         'category': 'D',
