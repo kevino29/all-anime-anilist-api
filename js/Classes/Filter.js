@@ -239,8 +239,10 @@ class Filter {
                                 // Set the sort toggle to default
                                 Global.reverseSort = false;
 
-                                // Still doesn't work
-                                document.querySelector('#reverseSortToggle').removeEventListener('click', handler);
+                                // Reset the event listener(s) on the reverse sort toggle
+                                let toggle = document.querySelector('#reverseSortToggle');
+                                let clone = toggle.cloneNode(true);
+                                toggle.parentNode.replaceChild(clone, toggle);
 
                                 // Add an event listener to the toggle
                                 document.querySelector('#reverseSortToggle').addEventListener('click', handler);

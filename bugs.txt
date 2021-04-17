@@ -1,4 +1,3 @@
 /***** KNOWN BUGS *****/
 
-Reverse sort toggle has multiplying event listeners
 Sorting by title doesn't ignore titles that doesn't have an english version
