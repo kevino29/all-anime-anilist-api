@@ -41,7 +41,7 @@ class WebAPI {
         }
     
         // CONSOLE THE VARIABLES
-        console.dir(variables)
+        // console.dir(variables)
     
         // Make the HTTP API request
         await fetch(Constants.url, options)

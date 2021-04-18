@@ -1,4 +1,5 @@
 // Spin.js from https://spin.js.org
+// Got it from microjs.com
 
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
